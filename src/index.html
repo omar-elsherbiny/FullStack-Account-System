@@ -1,16 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./js/script.js" defer></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Account System</title>
-</head>
+  </head>
 
-<body>
-    
-</body>
+  <body>
+    <form action="/sign-up" method="post">
+      <h2>Sign up</h2>
 
+      <label id="sign-up-email-label" for="sign-up-email">Email:</label>
+      <input
+        id="sign-up-email"
+        name="sign-up-email"
+        placeholder="example.email.com"
+        type="email"
+      />
+
+      <label id="sign-up-password-label" for="sign-up-password"
+        >Password:</label
+      >
+      <input
+        id="sign-up-password"
+        name="sign-up-password"
+        placeholder=""
+        type="password"
+      />
+
+      <button type="submit">Sign up</button>
+    </form>
+
+    <form action="/log-in" method="post">
+      <h2>Log in</h2>
+
+      <label id="log-in-email-label" for="log-in-email">Email:</label>
+      <input
+        id="log-in-email"
+        name="log-in-email"
+        placeholder="example.email.com"
+        type="email"
+      />
+
+      <label id="log-in-password-label" for="log-in-password">Password:</label>
+      <input
+        id="log-in-password"
+        name="log-in-password"
+        placeholder=""
+        type="password"
+      />
+
+      <button type="submit">Login</button>
+    </form>
+  </body>
 </html>

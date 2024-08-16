@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var fs = require('fs');
 require('dotenv').config();
 
@@ -13,8 +14,8 @@ liveReloadServer.server.once("connection", () => {
 });
 
 const app = express();
-const hostname = process.env.hostname;
-const port = process.env.port;
+const hostname = process.env.hostname || 'localhost';
+const port = process.env.port || 8080;
 
 function writeHtmlFile(result, filename) {
     fs.readFile(filename, function (error, data) {
@@ -30,9 +31,20 @@ function writeHtmlFile(result, filename) {
 
 app.use(connectLiveReload());
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', function (request, result) {
+    writeHtmlFile(result, './src/index.html');
+});
+
+app.post('/sign-up', function (request, result) {
+    console.log(request.body);
+    writeHtmlFile(result, './src/index.html');
+});
+
+app.post('/log-in', function (request, result) {
+    console.log(request.body);
     writeHtmlFile(result, './src/index.html');
 });
 

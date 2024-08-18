@@ -35,17 +35,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', function (request, result) {
-    writeHtmlFile(result, './src/index.html');
+    writeHtmlFile(result, '../views/index.html');
 });
 
 app.post('/sign-up', function (request, result) {
     console.log(request.body);
-    writeHtmlFile(result, './src/index.html');
+    writeHtmlFile(result, '../views/index.html');
 });
 
 app.post('/log-in', function (request, result) {
     console.log(request.body);
-    writeHtmlFile(result, './src/index.html');
+    writeHtmlFile(result, '../views/index.html');
 });
 
 app.listen(port, hostname, () => {

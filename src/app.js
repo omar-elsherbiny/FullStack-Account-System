@@ -5,6 +5,7 @@ require('dotenv').config();
 const app = express();
 const hostname = process.env.hostname || 'localhost';
 const port = process.env.port || 8080;
+let databose = {}
 
 // live reload
 const livereload = require("livereload");
@@ -44,6 +45,13 @@ app.post('/sign-up', async function (request, result) {
         username: request.body['sign-up-username'],
         password: request.body['sign-up-password']
     }
+    if (data.username in databose) {
+        console.log('nuh uh, username taken');
+    } else {
+        databose[data.username] = await getHash(data.password);
+        console.log('nice bel ice, created new account');
+    }
+    console.log(databose);
     result.redirect('/');
 });
 
@@ -51,6 +59,11 @@ app.post('/log-in', async function (request, result) {
     let data = {
         username: request.body['log-in-username'],
         password: request.body['log-in-password']
+    }
+    if (data.username in databose && await compareHash(data.password, databose[data.username])) {
+        console.log('yuh uh, logged in');
+    } else {
+        console.log('nuh uh, invalid username or password');
     }
     result.redirect('/');
 });

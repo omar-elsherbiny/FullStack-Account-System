@@ -1,51 +1,45 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var fs = require('fs');
 require('dotenv').config();
 
+const app = express();
+const hostname = process.env.hostname || 'localhost';
+const port = process.env.port || 8080;
+
+// live reload
 var livereload = require("livereload");
 var connectLiveReload = require("connect-livereload");
-
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once("connection", () => {
     setTimeout(() => {
         liveReloadServer.refresh("/");
     }, 100);
 });
-
-const app = express();
-const hostname = process.env.hostname || 'localhost';
-const port = process.env.port || 8080;
-
-function writeHtmlFile(result, filename) {
-    fs.readFile(filename, function (error, data) {
-        if (error) {
-            result.writeHead(404, { 'Content-Type': 'text/html' });
-            return result.end("404 Not Found");
-        }
-        result.writeHead(200, { 'Content-Type': 'text/html' });
-        result.write(data);
-        return result.end();
-    });
-}
-
 app.use(connectLiveReload());
+// live reload //
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', function (request, result) {
-    writeHtmlFile(result, '../views/index.html');
+    result.render('index');
 });
 
 app.post('/sign-up', function (request, result) {
-    console.log(request.body);
-    writeHtmlFile(result, '../views/index.html');
+    let data = {
+        username: request.body['sign-up-username'],
+        password: request.body['sign-up-password']
+    }
+    result.redirect('/');
 });
 
 app.post('/log-in', function (request, result) {
-    console.log(request.body);
-    writeHtmlFile(result, '../views/index.html');
+    let data = {
+        username: request.body['log-in-username'],
+        password: request.body['log-in-password']
+    }
+    result.redirect('/');
 });
 
 app.listen(port, hostname, () => {

@@ -40,6 +40,10 @@ app.get('/', function (request, result) {
     result.render('index');
 });
 
+app.get('/sign-up', function (request, result) {
+    result.render('sign-up');
+});
+
 app.post('/sign-up', async function (request, result) {
     let data = {
         username: request.body['sign-up-username'],
@@ -55,6 +59,10 @@ app.post('/sign-up', async function (request, result) {
     result.redirect('/');
 });
 
+app.get('/log-in', function (request, result) {
+    result.render('log-in');
+});
+
 app.post('/log-in', async function (request, result) {
     let data = {
         username: request.body['log-in-username'],
@@ -67,10 +75,6 @@ app.post('/log-in', async function (request, result) {
     }
     result.redirect('/');
 });
-
-// app.get('/test', function (request, result) {
-//     result.send('test');
-// });
 
 app.use((request, result, next) => {
     result.status(404);

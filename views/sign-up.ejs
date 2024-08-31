@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/script.js" defer></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <title>Account System</title>
+  </head>
+
+  <body>
+    <form action="/sign-up" method="post">
+      <h2>Sign up</h2>
+
+      <label id="sign-up-username-label" for="sign-up-username"
+        >Username:</label
+      >
+      <input
+        id="sign-up-username"
+        name="sign-up-username"
+        placeholder=""
+        type="username"
+      />
+
+      <label id="sign-up-password-label" for="sign-up-password"
+        >Password:</label
+      >
+      <input
+        id="sign-up-password"
+        name="sign-up-password"
+        placeholder=""
+        type="password"
+      />
+
+      <button type="submit">Sign up</button>
+    </form>
+  </body>
+</html>

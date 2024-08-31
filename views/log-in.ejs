@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/script.js" defer></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <title>Account System</title>
+  </head>
+
+  <body>
+    <form action="/log-in" method="post">
+      <h2>Log in</h2>
+
+      <label id="log-in-username-label" for="log-in-username">Username:</label>
+      <input
+        id="log-in-username"
+        name="log-in-username"
+        placeholder=""
+        type="username"
+      />
+
+      <label id="log-in-password-label" for="log-in-password">Password:</label>
+      <input
+        id="log-in-password"
+        name="log-in-password"
+        placeholder=""
+        type="password"
+      />
+
+      <button type="submit">Login</button>
+    </form>
+  </body>
+</html>

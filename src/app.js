@@ -68,6 +68,26 @@ app.post('/log-in', async function (request, result) {
     result.redirect('/');
 });
 
+// app.get('/test', function (request, result) {
+//     result.send('test');
+// });
+
+app.use((request, result, next) => {
+    result.status(404);
+
+    if (request.accepts('html')) {
+        result.render('404');
+        return;
+    }
+
+    if (request.accepts('json')) {
+        result.json({ error: 'Not found' });
+        return;
+    }
+
+    result.type('txt').send('Not found');
+});
+
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });

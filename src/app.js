@@ -6,7 +6,6 @@ require('dotenv').config();
 const app = express();
 const hostname = process.env.hostname || 'localhost';
 const port = process.env.port || 8080;
-let databose = {}
 
 // live reload
 const livereload = require('livereload');
@@ -71,11 +70,16 @@ app.post('/log-in', async function (request, result) {
         username: request.body['log-in-username'],
         password: request.body['log-in-password']
     }
-    if (data.username in databose && await compareHash(data.password, databose[data.username])) {
-        console.log('yuh uh, logged in');
+
+    const check = await collection.findOne({ username: data.username });
+
+    if (check && await compareHash(data.password, check.hash)) {
+        console.log(`user "${data.username}" logged in`);
     } else {
-        console.log('nuh uh, invalid username or password');
+        result.send('Invalid username or password');
+        return;
     }
+
     result.redirect('/');
 });
 

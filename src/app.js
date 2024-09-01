@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const collection = require('./config');
 require('dotenv').config();
 
 const app = express();
@@ -8,10 +9,10 @@ const port = process.env.port || 8080;
 let databose = {}
 
 // live reload
-const livereload = require("livereload");
-const connectLiveReload = require("connect-livereload");
+const livereload = require('livereload');
+const connectLiveReload = require('connect-livereload');
 const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
+liveReloadServer.server.once('connection', () => {
     setTimeout(() => {
         liveReloadServer.refresh("/");
     }, 100);
@@ -47,15 +48,17 @@ app.get('/sign-up', function (request, result) {
 app.post('/sign-up', async function (request, result) {
     let data = {
         username: request.body['sign-up-username'],
-        password: request.body['sign-up-password']
+        hash: await getHash(request.body['sign-up-password'])
     }
-    if (data.username in databose) {
-        console.log('nuh uh, username taken');
+
+    if (await collection.findOne({ username: data.username })) {
+        result.send('Username already taken');
+        return;
     } else {
-        databose[data.username] = await getHash(data.password);
-        console.log('nice bel ice, created new account');
+        const userData = await collection.insertMany(data);
+        console.log(`user "${userData[0].username}" created`);
     }
-    console.log(databose);
+
     result.redirect('/');
 });
 

@@ -1,7 +1,9 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const collection = require('./config');
 require('dotenv').config();
+const express = require('express');
+
+const { getHash, compareHash } = require('./crypt');
+const collection = require('./config');
+const session = require('./session');
 
 const app = express();
 const hostname = process.env.hostname || 'localhost';
@@ -19,18 +21,7 @@ liveReloadServer.server.once('connection', () => {
 app.use(connectLiveReload());
 // live reload //
 
-async function getHash(password) {
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(password, salt);
-    return hash;
-}
-
-async function compareHash(unHashedPassword, storedHash) {
-    const match = await bcrypt.compare(unHashedPassword, storedHash);
-    return match;
-}
-
+app.use(session);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
@@ -55,6 +46,7 @@ app.post('/sign-up', async function (request, result) {
         return;
     } else {
         const userData = await collection.insertMany(data);
+        request.session.userId = userData._id;
         console.log(`user "${userData[0].username}" created`);
     }
 
@@ -71,9 +63,10 @@ app.post('/log-in', async function (request, result) {
         password: request.body['log-in-password']
     }
 
-    const check = await collection.findOne({ username: data.username });
+    const user_check = await collection.findOne({ username: data.username });
 
-    if (check && await compareHash(data.password, check.hash)) {
+    if (user_check && await compareHash(data.password, user_check.hash)) {
+        request.session.userId = user_check._id;
         console.log(`user "${data.username}" logged in`);
     } else {
         result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })

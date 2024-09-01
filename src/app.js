@@ -47,7 +47,7 @@ app.post('/sign-up', async function (request, result) {
     } else {
         const userData = await collection.insertMany(data);
         request.session.userId = userData._id;
-        console.log(`user "${userData[0].username}" created`);
+        console.log(`User "${userData[0].username}" created`);
     }
 
     result.redirect('/');
@@ -67,12 +67,21 @@ app.post('/log-in', async function (request, result) {
 
     if (user_check && await compareHash(data.password, user_check.hash)) {
         request.session.userId = user_check._id;
-        console.log(`user "${data.username}" logged in`);
+        console.log(`User "${data.username}" logged in`);
     } else {
         result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })
         return;
     }
 
+    result.redirect('/');
+});
+
+app.post('/log-out', async function (request, result) {
+    try {
+        await request.session.destroy();
+    } catch (error) {
+        console.error('Error logging out:', error);;
+    }
     result.redirect('/');
 });
 

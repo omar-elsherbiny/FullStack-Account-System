@@ -1,10 +1,31 @@
-<link rel="stylesheet" href="/css/alerts.css">
+<link rel="stylesheet" href="/css/alerts.css" />
 <% if (locals.alerts) { %>
 <div class="alerts-container">
-  <% alerts.forEach(alert=>{ %>
-  <h3 class="alert" data-alert-type="<%= alert.type %>">
+  <% alerts.forEach((alert, index)=>{ %>
+  <h3 class="alert" style="animation-delay: <%= index * 150 %>ms" data-alert-type="<%= alert.type %>">
     <%= alert.content %>
   </h3>
   <% }) %>
 </div>
+
+<script>
+  const alertContainer = document.querySelector('.alerts-container')
+  const alerts = Array.from(document.querySelectorAll('.alerts-container .alert'))
+  console.log(alerts);
+
+  setTimeout(() => {
+    alerts.forEach((element, index) => {
+      setTimeout(() => {
+        element.style.animation = 'alertPoof 600ms ease forwards'
+        setTimeout(() => {
+          element.parentElement.removeChild(element)
+
+          if (alertContainer.children.length == 0) {
+            alertContainer.parentElement.removeChild(alertContainer)
+          }
+        }, 600)
+      }, index * 300)
+    });
+  }, 3000);
+</script>
 <% } %>

@@ -6,7 +6,7 @@ form {
 
     padding: 3rem 5rem;
     display: grid;
-    width: fit-content;
+    width: 20rem;
     justify-items: center;
 
     border-radius: 1rem;
@@ -30,25 +30,35 @@ form input[type="password"] {
     border: 2pt solid black;
     margin-bottom: 1.5rem;
     color: #0088cc;
+
+    max-height: 1rem;
 }
 
 form p {
     margin-top: 0;
     margin-bottom: 2rem;
+    text-align: center;
 }
 
 form div {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2rem;
+    grid-template-columns: 1fr 1.8rem;
     margin-bottom: 1rem;
 }
 
+form div label {
+    margin-bottom: 0;
+}
+
+
 form input[type="checkbox"] {
     accent-color: #0088cc;
+    margin: 0;
 }
 
 form button {
+    max-height: 2.5rem;
     padding: 0.5rem;
     border-radius: 0.25rem;
     border: 2pt solid black;
@@ -59,4 +69,19 @@ form button {
 form button:hover {
     background-color: hsl(200, 75%, 65%);
     color: white;
+}
+
+form input:focus-visible,
+form button:focus-visible {
+    outline-offset: 2px;
+    outline: hsla(200, 75%, 65%, 75%) solid 3px;
+}
+
+@media only screen and (max-width:545px) {
+    form {
+        height: 80%;
+        width: calc(100% - 4rem);
+        padding: 2rem;
+        border: none;
+    }
 }

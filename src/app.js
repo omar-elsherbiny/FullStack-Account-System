@@ -44,6 +44,10 @@ app.get('/sign-up', function (request, result) {
     result.render('sign-up');
 });
 
+app.get('/test', function (request, result) {
+    result.render('sign-up', { alerts: [{ content: 'Username already taken', type: 'error' }, { content: 'Username already taken', type: 'error' }, { content: 'Username already taken', type: 'caution' }, { content: 'Username already taken', type: 'info' }, { content: 'Username already taken', type: 'error' }, { content: 'Username already taken', type: 'error' }, { content: 'Username already taken', type: 'info' }, { content: 'Username already taken', type: 'caution' }] });
+});
+
 app.post('/sign-up', async function (request, result) {
     let data = {
         username: request.body['sign-up-username'],
@@ -51,7 +55,7 @@ app.post('/sign-up', async function (request, result) {
     }
 
     if (await collection.findOne({ username: data.username })) {
-        result.render('log-in', { alerts: [{ content: 'Username already taken', type: 'error' }] })
+        result.render('sign-up', { alerts: [{ content: 'Username already taken', type: 'error' }] })
         return;
     } else {
         const userData = await collection.insertMany(data);

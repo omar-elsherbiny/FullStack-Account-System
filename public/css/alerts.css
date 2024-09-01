@@ -1,8 +1,29 @@
-.alerts-container {}
+.alerts-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    z-index: 999;
+
+    pointer-events: none;
+}
 
 .alert {
+    user-select: none;
+
     background-color: var(--color);
     padding: 1rem;
+    width: fit-content;
+    border-radius: 1rem;
+
+    transform: translateY(-10000%);
+    animation: alertDrop 300ms ease forwards;
 }
 
 .alert[data-alert-type="error"] {
@@ -15,4 +36,26 @@
 
 .alert[data-alert-type="caution"] {
     --color: #e3d026;
+}
+
+@keyframes alertDrop {
+    from {
+        transform: translateY(-1000%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes alertPoof {
+    from {
+        transform: translateY(0%) scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(0%) scale(1.125);
+        opacity: 0;
+    }
 }

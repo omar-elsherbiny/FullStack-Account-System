@@ -1,0 +1,18 @@
+.alerts-container {}
+
+.alert {
+    background-color: var(--color);
+    padding: 1rem;
+}
+
+.alert[data-alert-type="error"] {
+    --color: #e32646;
+}
+
+.alert[data-alert-type="info"] {
+    --color: #26ade3;
+}
+
+.alert[data-alert-type="caution"] {
+    --color: #e3d026;
+}

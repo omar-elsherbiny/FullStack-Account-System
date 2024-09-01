@@ -51,7 +51,7 @@ app.post('/sign-up', async function (request, result) {
     }
 
     if (await collection.findOne({ username: data.username })) {
-        result.send('Username already taken');
+        result.render('log-in', { alerts: [{ content: 'Username already taken', type: 'error' }] })
         return;
     } else {
         const userData = await collection.insertMany(data);
@@ -76,7 +76,7 @@ app.post('/log-in', async function (request, result) {
     if (check && await compareHash(data.password, check.hash)) {
         console.log(`user "${data.username}" logged in`);
     } else {
-        result.send('Invalid username or password');
+        result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })
         return;
     }
 

@@ -1,0 +1,10 @@
+<link rel="stylesheet" href="/css/alerts.css">
+<% if (locals.alerts) { %>
+<div class="alerts-container">
+  <% alerts.forEach(alert=>{ %>
+  <h3 class="alert" data-alert-type="<%= alert.type %>">
+    <%= alert.content %>
+  </h3>
+  <% }) %>
+</div>
+<% } %>

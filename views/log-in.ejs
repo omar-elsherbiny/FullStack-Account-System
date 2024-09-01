@@ -1,49 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/js/script.js" defer></script>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/forms.css" />
-    <title>Account System</title>
-  </head>
 
-  <body>
-    <form action="/log-in" method="post">
-      <h2>Log in</h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="/js/script.js" defer></script>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/forms.css" />
+  <title>Account System</title>
+</head>
 
-      <label id="log-in-username-label" for="log-in-username">Username:</label>
-      <input
-        id="log-in-username"
-        name="log-in-username"
-        placeholder=""
-        type="text"
-      />
+<body>
+  <%- include('./partials/alerts.ejs') %>
+  <form action="/log-in" method="post">
+    <h2>Log in</h2>
 
-      <label id="log-in-password-label" for="log-in-password">Password:</label>
-      <input
-        id="log-in-password"
-        name="log-in-password"
-        placeholder=""
-        type="password"
-      />
+    <label id="log-in-username-label" for="log-in-username">Username:</label>
+    <input id="log-in-username" name="log-in-username" placeholder="" type="text" />
 
-      <div>
-        <label id="log-in-stay-label" for="log-in-stay">Stay logged in?</label>
-        <input
-          id="log-in-stay"
-          name="log-in-stay"
-          placeholder=""
-          type="checkbox"
-        />
-      </div>
+    <label id="log-in-password-label" for="log-in-password">Password:</label>
+    <input id="log-in-password" name="log-in-password" placeholder="" type="password" />
 
-      <p>
-        Already got an account? <strong> <a href="/sign-up">Sign up</a></strong>
-      </p>
+    <div>
+      <label id="log-in-stay-label" for="log-in-stay">Stay logged in?</label>
+      <input id="log-in-stay" name="log-in-stay" placeholder="" type="checkbox" />
+    </div>
 
-      <button type="submit">Login</button>
-    </form>
-  </body>
+    <p>
+      Already got an account? <strong> <a href="/sign-up">Sign up</a></strong>
+    </p>
+
+    <button type="submit">Login</button>
+  </form>
+</body>
+
 </html>

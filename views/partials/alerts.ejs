@@ -2,21 +2,22 @@
 <% if (locals.alerts) { %>
 <div class="alerts-container">
   <% alerts.forEach((alert, index)=>{ %>
-  <h3 class="alert" style="animation-delay: <%= index * 150 %>ms" data-alert-type="<%= alert.type %>">
-    <%= alert.content %>
-  </h3>
+  <div class="alert-container" style="animation-delay: <%= index * 150 %>ms">
+    <h3 class="alert" data-alert-type="<%= alert.type %>">
+      <%= alert.content %>
+    </h3>
+  </div>
   <% }) %>
 </div>
 
 <script>
   const alertContainer = document.querySelector('.alerts-container')
-  const alerts = Array.from(document.querySelectorAll('.alerts-container .alert'))
-  console.log(alerts);
+  const alertContainers = Array.from(document.querySelectorAll('.alerts-container .alert-container'))
 
   setTimeout(() => {
-    alerts.forEach((element, index) => {
+    alertContainers.forEach((element, index) => {
       setTimeout(() => {
-        element.style.animation = 'alertPoof 600ms ease forwards'
+        element.style.animation = 'alertPoof 600ms ease forwards';
         setTimeout(() => {
           element.parentElement.removeChild(element)
 
@@ -24,8 +25,8 @@
             alertContainer.parentElement.removeChild(alertContainer)
           }
         }, 600)
-      }, index * 300)
+      }, index * 600)
     });
-  }, 3000);
+  }, 5000);
 </script>
 <% } %>

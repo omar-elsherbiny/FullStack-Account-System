@@ -1,0 +1,13 @@
+header {
+    background-color: rgb(220, 220, 220);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding: 0 3rem;
+}
+
+header div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}

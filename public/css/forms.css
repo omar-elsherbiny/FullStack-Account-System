@@ -1,0 +1,62 @@
+form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 3rem 5rem;
+    display: grid;
+    width: fit-content;
+    justify-items: center;
+
+    border-radius: 1rem;
+    border: 2pt solid black;
+}
+
+form h2 {
+    margin-bottom: 3rem;
+}
+
+form label {
+    justify-self: left;
+    margin-bottom: 0.5rem;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: calc(100% - 1rem - 4pt);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 2pt solid black;
+    margin-bottom: 1.5rem;
+    color: #0088cc;
+}
+
+form p {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+form div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2rem;
+    margin-bottom: 1rem;
+}
+
+form input[type="checkbox"] {
+    accent-color: #0088cc;
+}
+
+form button {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 2pt solid black;
+    cursor: pointer;
+    transition: background-color 100ms ease, color 100ms ease;
+}
+
+form button:hover {
+    background-color: hsl(200, 75%, 65%);
+    color: white;
+}

@@ -23,7 +23,7 @@ router.get('/sign-up', function (request, result) {
 router.post('/sign-up', async function (request, result) {
     let data = {
         username: request.body['sign-up-username'],
-        hash: await getHash(request.body['sign-up-password'])
+        hash: await getHash(request.body['sign-up-password']),
     }
 
     if (await collection.findOne({ username: data.username })) {
@@ -31,27 +31,30 @@ router.post('/sign-up', async function (request, result) {
         return;
     } else {
         const userData = await collection.insertMany(data);
-        request.session.userId = userData[0]._id;
+        // request.session.userId = userData[0]._id;
         console.log(`User "${userData[0].username}" created`);
+        request.flash('alerts', [{ content: 'Account created successfully', type: 'success' }])
+        result.redirect('/log-in');
     }
-
-    result.redirect('/');
 });
 
 router.get('/log-in', function (request, result) {
-    result.render('log-in');
+    result.render('log-in', { alerts: request.flash('alerts') });
 });
 
 router.post('/log-in', async function (request, result) {
     let data = {
         username: request.body['log-in-username'],
-        password: request.body['log-in-password']
+        password: request.body['log-in-password'],
+        keepLogged: request.body['log-in-stay'],
     }
 
     const user_check = await collection.findOne({ username: data.username });
 
     if (user_check && await compareHash(data.password, user_check.hash)) {
-        request.session.userId = user_check._id;
+        if (data.keepLogged == 'on') {
+            request.session.userId = user_check._id;
+        }
         console.log(`User "${data.username}" logged in`);
     } else {
         result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })

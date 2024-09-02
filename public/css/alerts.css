@@ -33,6 +33,10 @@
     --color: #e32646;
 }
 
+.alert[data-alert-type="success"] {
+    --color: #26e368;
+}
+
 .alert[data-alert-type="info"] {
     --color: #26ade3;
 }

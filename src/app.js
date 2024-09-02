@@ -27,8 +27,16 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-app.get('/', function (request, result) {
-    result.render('index');
+app.get('/', async function (request, result) {
+    let options = {};
+
+    if (request.session.userId) {
+        const user = await collection.findOne({ _id: request.session.userId });
+
+        options.username = user.username;
+    }
+
+    result.render('index', options);
 });
 
 app.get('/sign-up', function (request, result) {
@@ -46,7 +54,7 @@ app.post('/sign-up', async function (request, result) {
         return;
     } else {
         const userData = await collection.insertMany(data);
-        request.session.userId = userData._id;
+        request.session.userId = userData[0]._id;
         console.log(`User "${userData[0].username}" created`);
     }
 
@@ -76,7 +84,7 @@ app.post('/log-in', async function (request, result) {
     result.redirect('/');
 });
 
-app.post('/log-out', async function (request, result) {
+app.get('/log-out', async function (request, result) {
     try {
         await request.session.destroy();
     } catch (error) {

@@ -8,6 +8,8 @@ const session = require('./session');
 
 // route imports
 const indexRouter = require('../routes/indexRouter');
+const accountRouter = require('../routes/accountRouter');
+const profileRouter = require('../routes/profileRouter');
 
 const app = express();
 const hostname = process.env.hostname || 'localhost';
@@ -46,6 +48,8 @@ app.use((request, result, next) => {
 
 // routes
 app.use('/', indexRouter);
+app.use('/account', accountRouter);
+app.use('/profile', profileRouter);
 
 // 404
 app.use((request, result, next) => {

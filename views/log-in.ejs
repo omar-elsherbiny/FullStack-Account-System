@@ -12,7 +12,7 @@
 
 <body>
   <%- include('./partials/alerts.ejs') %>
-  <form action="/log-in" method="post">
+  <form action="/account/log-in" method="post">
     <h2>Log in</h2>
 
     <label id="log-in-username-label" for="log-in-username">Username:</label>
@@ -27,7 +27,7 @@
     </div>
 
     <p>
-      Already got an account? <strong> <a href="/sign-up">Sign up</a></strong>
+      Already got an account? <strong> <a href="/account/sign-up">Sign up</a></strong>
     </p>
 
     <button type="submit">Login</button>

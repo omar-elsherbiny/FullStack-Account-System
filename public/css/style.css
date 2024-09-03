@@ -16,3 +16,16 @@ a {
     font-size: 12pt;
     color: #0088cc;
 }
+
+#page-404 {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-404 h1,
+#page-404 h2 {
+    margin: 0;
+}

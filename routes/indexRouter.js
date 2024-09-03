@@ -15,7 +15,12 @@ router.get('/', async function (request, result) {
 });
 
 router.get('/sign-up', function (request, result) {
-    result.render('sign-up', { alerts: request.flash('alerts') });
+    if (request.session.user) {
+        request.flash('alerts', [{ content: 'You are already logged in', type: 'info' }]);
+        result.redirect('/');
+    } else {
+        result.render('sign-up', { alerts: request.flash('alerts') });
+    }
 });
 
 router.post('/sign-up', async function (request, result) {
@@ -35,7 +40,12 @@ router.post('/sign-up', async function (request, result) {
 });
 
 router.get('/log-in', function (request, result) {
-    result.render('log-in', { alerts: request.flash('alerts') });
+    if (request.session.user) {
+        request.flash('alerts', [{ content: 'You are already logged in', type: 'info' }]);
+        result.redirect('/');
+    } else {
+        result.render('log-in', { alerts: request.flash('alerts') });
+    }
 });
 
 router.post('/log-in', async function (request, result) {
@@ -52,7 +62,7 @@ router.post('/log-in', async function (request, result) {
         request.session.keepLogged = data.keepLogged;
         request.session.timestamp = Date.now();
         console.log(`User "${data.username}" logged in`);
-        request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }])
+        request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }]);
         result.redirect('/');
     } else {
         result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })
@@ -61,7 +71,7 @@ router.post('/log-in', async function (request, result) {
 
 router.get('/log-out', async function (request, result) { // convert to post
     request.session.user = null;
-    request.flash('alerts', [{ content: 'Logged out successfully', type: 'caution' }])
+    request.flash('alerts', [{ content: 'Logged out successfully', type: 'success' }]);
     result.redirect('/');
 });
 

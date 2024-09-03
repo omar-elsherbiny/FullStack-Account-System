@@ -17,7 +17,7 @@
 .alert-container {
     user-select: none;
     transform: translateY(-10000%);
-    animation: alertDrop 300ms ease forwards;
+    animation: alertDrop 500ms ease forwards;
     overflow-y: hidden;
     height: 92.21px;
 }

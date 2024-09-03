@@ -5,7 +5,7 @@ const { getHash, compareHash } = require('../src/crypt');
 const collection = require('../src/config');
 
 router.get('/', async function (request, result) {
-    let options = {};
+    let options = { alerts: request.flash('alerts') };
 
     if (request.session.user) {
         options.username = request.session.user.username;
@@ -15,7 +15,7 @@ router.get('/', async function (request, result) {
 });
 
 router.get('/sign-up', function (request, result) {
-    result.render('sign-up');
+    result.render('sign-up', { alerts: request.flash('alerts') });
 });
 
 router.post('/sign-up', async function (request, result) {
@@ -26,7 +26,6 @@ router.post('/sign-up', async function (request, result) {
 
     if (await collection.findOne({ username: data.username })) {
         result.render('sign-up', { alerts: [{ content: 'Username already taken', type: 'error' }] })
-        return;
     } else {
         const userData = await collection.insertMany(data);
         console.log(`User "${userData[0].username}" created`);
@@ -53,20 +52,16 @@ router.post('/log-in', async function (request, result) {
         request.session.keepLogged = data.keepLogged;
         request.session.timestamp = Date.now();
         console.log(`User "${data.username}" logged in`);
+        request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }])
+        result.redirect('/');
     } else {
         result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })
-        return;
     }
-
-    result.redirect('/');
 });
 
-router.get('/log-out', async function (request, result) {
-    try {
-        await request.session.destroy();
-    } catch (error) {
-        console.error('Error logging out:', error);
-    }
+router.get('/log-out', async function (request, result) { // convert to post
+    request.session.user = null;
+    request.flash('alerts', [{ content: 'Logged out successfully', type: 'caution' }])
     result.redirect('/');
 });
 

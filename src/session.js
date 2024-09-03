@@ -12,5 +12,8 @@ module.exports = session({
     saveUninitialized: true,
     store: MongoStore.create({
         mongoUrl: 'mongodb://localhost:27017/Account_System'
-    })
+    }),
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30
+    },
 });

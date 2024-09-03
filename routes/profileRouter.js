@@ -2,9 +2,19 @@ const express = require('express');
 const router = express.Router();
 
 const { loginRequired } = require('../src/funcs');
+const collection = require('../src/dbconfig');
 
 router.get('/', loginRequired, (request, result) => {
-    result.send('Profile page')
+    result.redirect('/profile/' + request.session.user.username);
+});
+
+router.get('/:username', async (request, result, next) => {
+    const searched_user = await collection.findOne({ username: request.params.username });
+    if (searched_user) {
+        result.send(searched_user.username);
+    } else {
+        next();
+    }
 });
 
 module.exports = router;

@@ -29,6 +29,17 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
+app.use((request, result, next) => {
+    console.log(request.session);
+    const now = Date.now();
+    if (!request.session.keepLogged &&
+        now - request.session.timestamp > 1000 * 60 * 60 * 3) { // 3 hours
+        request.session.user = null;
+    }
+    request.session.timestamp = now;
+    next();
+});
+
 app.use('/', indexRouter);
 
 app.use((request, result, next) => {

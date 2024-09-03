@@ -11,7 +11,10 @@ router.get('/', loginRequired, (request, result) => {
 router.get('/:username', async (request, result, next) => {
     const searched_user = await collection.findOne({ username: request.params.username });
     if (searched_user) {
-        result.send(searched_user.username);
+        result.render('profile', {
+            alerts: request.flash('alerts'),
+            username: request.params.username,
+        });
     } else {
         next();
     }

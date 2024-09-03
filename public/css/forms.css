@@ -1,3 +1,22 @@
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+    font-size: 16px;
+}
+
 form {
     position: absolute;
     top: 50%;
@@ -43,6 +62,7 @@ form p {
 form div {
     width: 100%;
     display: grid;
+    align-items: center;
     grid-template-columns: 1fr 1.8rem;
     margin-bottom: 1rem;
 }
@@ -53,6 +73,7 @@ form div label {
 
 
 form input[type="checkbox"] {
+    height: 1.8rem;
     accent-color: #0088cc;
     margin: 0;
 }

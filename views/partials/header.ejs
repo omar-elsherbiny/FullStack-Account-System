@@ -1,0 +1,13 @@
+<header>
+  <a href="/">
+    <h1>Home</h1>
+  </a>
+  <div>
+    <% if (locals.username) { %>
+    Welcome<a href="/profile"><%= username %></a>
+    <% } else { %>
+    <a href="/log-in">Log in</a>
+    <a href="/sign-up">Sign up</a>
+    <% }%>
+  </div>
+</header>

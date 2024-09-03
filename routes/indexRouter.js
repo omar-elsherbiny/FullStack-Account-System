@@ -29,7 +29,6 @@ router.post('/sign-up', async function (request, result) {
         return;
     } else {
         const userData = await collection.insertMany(data);
-        // request.session.userId = userData[0]._id;
         console.log(`User "${userData[0].username}" created`);
         request.flash('alerts', [{ content: 'Account created successfully', type: 'success' }])
         result.redirect('/log-in');

@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const { getHash, compareHash } = require('../src/crypt');
-const collection = require('../src/config');
+const collection = require('../src/dbconfig');
 
-router.get('/', function (request, result) {
+router.get('/', (request, result) => {
     if (request.session.user) {
         result.send('account change page');
     } else {
@@ -12,7 +12,7 @@ router.get('/', function (request, result) {
     }
 });
 
-router.get('/sign-up', function (request, result) {
+router.get('/sign-up', (request, result) => {
     if (request.session.user) {
         request.flash('alerts', [{ content: 'You are already logged in', type: 'info' }]);
         result.redirect('/');
@@ -21,7 +21,7 @@ router.get('/sign-up', function (request, result) {
     }
 });
 
-router.post('/sign-up', async function (request, result) {
+router.post('/sign-up', async (request, result) => {
     let data = {
         username: request.body['sign-up-username'],
         hash: await getHash(request.body['sign-up-password']),
@@ -37,7 +37,7 @@ router.post('/sign-up', async function (request, result) {
     }
 });
 
-router.get('/log-in', function (request, result) {
+router.get('/log-in', (request, result) => {
     if (request.session.user) {
         request.flash('alerts', [{ content: 'You are already logged in', type: 'info' }]);
         result.redirect('/');
@@ -46,7 +46,7 @@ router.get('/log-in', function (request, result) {
     }
 });
 
-router.post('/log-in', async function (request, result) {
+router.post('/log-in', async (request, result) => {
     let data = {
         username: request.body['log-in-username'],
         password: request.body['log-in-password'],
@@ -67,7 +67,7 @@ router.post('/log-in', async function (request, result) {
     }
 });
 
-router.get('/log-out', async function (request, result) { // convert to post
+router.get('/log-out', async (request, result) => { // convert to post
     request.session.user = null;
     request.flash('alerts', [{ content: 'Logged out successfully', type: 'success' }]);
     result.redirect('/');

@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', function (request, result) {
+const { loginRequired } = require('../src/funcs');
+
+router.get('/', loginRequired, (request, result) => {
     result.send('Profile page')
 });
 

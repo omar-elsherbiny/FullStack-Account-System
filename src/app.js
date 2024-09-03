@@ -5,6 +5,7 @@ const flash = require('express-flash');
 
 // js imports
 const session = require('./session');
+const { authUser, loginRequired } = require('./funcs');
 
 // route imports
 const indexRouter = require('../routes/indexRouter');
@@ -21,7 +22,7 @@ const connectLiveReload = require('connect-livereload');
 const liveReloadServer = livereload.createServer();
 liveReloadServer.server.once('connection', () => {
     setTimeout(() => {
-        liveReloadServer.refresh("/");
+        liveReloadServer.refresh('/');
     }, 100);
 });
 app.use(connectLiveReload());
@@ -36,15 +37,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // login authorize middleware
-app.use((request, result, next) => {
-    const now = Date.now();
-    if (!request.session.keepLogged &&
-        now - request.session.timestamp > 1000 * 60 * 60 * 3) { // 3 hours
-        request.session.user = null;
-    }
-    request.session.timestamp = now;
-    next();
-});
+app.use(authUser);
 
 // routes
 app.use('/', indexRouter);

@@ -1,5 +1,5 @@
 main {
-    height: 90vh;
+    height: calc(100vh - 5.5rem);
     display: grid;
     place-items: center;
 }

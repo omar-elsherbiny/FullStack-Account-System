@@ -17,6 +17,8 @@ router.get('/:username', async (request, result, next) => {
             profileUsername: searched_user.username,
             profileDisplayName: searched_user.displayName,
             canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
+            memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
+            showMemberSince: searched_user.showMemberSince,
         });
     } else {
         next();
@@ -30,9 +32,15 @@ router.put('/:username/update-profile', loginRequired, async (request, result, n
     }
 
     try {
-        let data = {};
+        let data = request.body;
 
-        result.json({ message: 'Profile updated successfully' });
+        const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
+
+        if (data.showMemberSince) {
+            result.json({ message: 'Profile updated successfully', username: user.username, memberSince: user.memberSince.toLocaleDateString('en-GB') });
+        } else {
+            result.json({ message: 'Profile updated successfully', username: user.username });
+        }
     } catch (error) {
         result.status(500).json({ message: 'Error updating profile', error: error.message });
     }

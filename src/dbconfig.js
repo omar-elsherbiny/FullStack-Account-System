@@ -22,6 +22,14 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    memberSince: {
+        type: Date,
+        required: true
+    },
+    showMemberSince: {
+        type: Boolean,
+        required: false
+    },
 });
 
 const collection = new mongoose.model('users', UserSchema);

@@ -17,6 +17,10 @@ a {
     color: #0088cc;
 }
 
+.hide {
+    display: none !important;
+}
+
 #page-404 {
     height: 100vh;
     display: flex;

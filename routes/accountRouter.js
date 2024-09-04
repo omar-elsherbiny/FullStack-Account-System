@@ -30,9 +30,11 @@ router.post('/sign-up', async (request, result) => {
     if (await collection.findOne({ username: data.username })) {
         result.render('sign-up', { alerts: [{ content: 'Username already taken', type: 'error' }] })
     } else {
+        data.memberSince = Date.now();
+        data.showMemberSince = true;
         const userData = await collection.insertMany(data);
         console.log(`User "${userData[0].username}" created`);
-        request.flash('alerts', [{ content: 'Account created successfully', type: 'success' }])
+        request.flash('alerts', [{ content: 'Account created successfully', type: 'success' }]);
         result.redirect('/account/log-in');
     }
 });

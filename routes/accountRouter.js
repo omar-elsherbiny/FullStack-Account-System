@@ -63,7 +63,7 @@ router.post('/log-in', async (request, result) => {
         request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }]);
         result.redirect('/');
     } else {
-        result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] })
+        result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] });
     }
 });
 

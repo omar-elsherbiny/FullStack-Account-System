@@ -20,14 +20,22 @@
       <div class="banner"></div>
       <img class="profile-picture" src="/media/profile-icon.png" alt="profile picture placeholder">
       <div class="content">
-        <h1>Display Name</h1>
-        <h3>Username</h3>
+        <% if (profileDisplayName) { %>
+
+        <h1><%= profileDisplayName %></h1>
+        <h3>@<%= profileUsername %></h3>
+
+        <% } else { %>
+        <h1>@<%= profileUsername %></h1>
+        <% } %>
         <h3>Member since: xx/xx/xxxx</h3>
         <div class="about-me">
           <h2>About Me</h2>
           <textarea name="about-me-textbox" id="about-me-textbox"></textarea>
         </div>
+        <% if (canEdit) { %>
         <button class="profile-edit-button" id="profile-edit-button">Edit</button>
+        <% } %>
       </div>
     </div>
   </main>

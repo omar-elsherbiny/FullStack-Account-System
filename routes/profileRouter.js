@@ -13,7 +13,10 @@ router.get('/:username', async (request, result, next) => {
     if (searched_user) {
         result.render('profile', {
             alerts: request.flash('alerts'),
-            username: request.params.username,
+            username: request.session.user.username,
+            profileUsername: searched_user.username,
+            profileDisplayName: searched_user.displayName,
+            canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
         });
     } else {
         next();

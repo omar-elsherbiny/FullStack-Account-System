@@ -15,11 +15,11 @@
   <form action="/account/sign-up" method="post">
     <h2>Sign up</h2>
 
-    <label id="sign-up-username-label" for="sign-up-username">Username:</label>
-    <input id="sign-up-username" name="sign-up-username" placeholder="" type="text" />
+    <label id="sign-up-username-label" for="sign-up-username">Username <span style="color: red;">*</span></label>
+    <input id="sign-up-username" name="sign-up-username" placeholder="" type="text" required />
 
-    <label id="sign-up-password-label" for="sign-up-password">Password:</label>
-    <input id="sign-up-password" name="sign-up-password" placeholder="" type="password" />
+    <label id="sign-up-password-label" for="sign-up-password">Password <span style="color: red;">*</span></label>
+    <input id="sign-up-password" name="sign-up-password" placeholder="" type="password" required />
 
     <p>
       Don't have an account? <strong> <a href="/account/log-in">Log in</a></strong>

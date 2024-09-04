@@ -9,7 +9,17 @@ header {
     box-sizing: border-box;
 }
 
+header a {
+    width: fit-content;
+}
+
 header div {
     display: flex;
     gap: 1rem;
+}
+
+@media only screen and (max-width:425px) {
+    header {
+        padding: 0 1.5rem;
+    }
 }

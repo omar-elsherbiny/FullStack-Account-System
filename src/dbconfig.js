@@ -17,7 +17,11 @@ const UserSchema = new mongoose.Schema({
     hash: {
         type: String,
         required: true
-    }
+    },
+    displayName: {
+        type: String,
+        required: false
+    },
 });
 
 const collection = new mongoose.model('users', UserSchema);

@@ -1,5 +1,87 @@
 main {
-    height: 80vh;
+    height: 90vh;
     display: grid;
     place-items: center;
+}
+
+.profile-container {
+    position: relative;
+
+    width: 45rem;
+    height: 90%;
+
+    border-radius: 1rem;
+    border: 2pt solid black;
+}
+
+.banner {
+    height: 8rem;
+    border-bottom: 2pt solid black;
+    border-radius: calc(1rem - 2pt) calc(1rem - 2pt) 0 0;
+    background: linear-gradient(50deg, rgba(38, 173, 227, 1) 0%, rgba(145, 38, 227, 1) 100%);
+}
+
+.profile-picture {
+    position: absolute;
+    top: 8rem;
+    right: 1.5rem;
+    transform: translateY(-50%);
+
+    width: 12rem;
+    height: 12rem;
+
+    border-radius: 50%;
+    background-color: white;
+    border: 2pt solid black;
+}
+
+.content {
+    box-sizing: border-box;
+    height: calc(100% - 8rem - 2pt);
+    padding: 1rem;
+}
+
+.content>h1,
+.content>h3 {
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.content>h3 {
+    font-weight: 500;
+}
+
+.about-me {
+    position: relative;
+
+    width: calc(100% - 1rem); 
+    height: 8rem;
+    margin-top: 1.5rem;
+    margin-left: 0.5rem;
+    
+    border-radius: 1rem;
+    border: 2pt solid black;
+}
+
+.about-me>h2 {
+    position: absolute;
+    top: 0;
+    left: 1.5rem;
+    transform: translateY(-65%);
+    margin: 0;
+    padding: 0 0.5rem;
+    font-size: 16pt;
+    background-color: white;
+}
+
+@media only screen and (max-width:815px) {
+    .profile-container {
+        height: 100%;
+        width: 100%;
+        border: none;
+    }
+
+    .banner {
+        border-radius: 0;
+    }
 }

@@ -7,6 +7,7 @@ const editMenu = document.getElementById('edit-menu');
 
 const editDisplayName = document.getElementById('profile-edit-display-name');
 const editShowMemberSince = document.getElementById('profile-edit-show-member-since');
+const editAboutMeTextbox = document.getElementById('profile-edit-about-me-textbox');
 
 editButton.addEventListener('click', () => {
     editMenu.classList.remove('hide');
@@ -25,6 +26,7 @@ editUpdate.addEventListener('click', async () => {
         body: JSON.stringify({
             displayName: editDisplayName.value,
             showMemberSince: editShowMemberSince.checked,
+            aboutMe: editAboutMeTextbox.value,
         })
     }).then(response => response.json()).then(data => {
         const displayName = document.getElementById('display-name');
@@ -52,6 +54,8 @@ editUpdate.addEventListener('click', async () => {
         } else {
             memberSince.textContent = `Member since: ${data.memberSince}`;
         }
+
+        aboutMe.textContent = editAboutMeTextbox.value;
 
         editMenu.classList.add('hide');
         content.classList.remove('hide');

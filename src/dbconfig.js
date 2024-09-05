@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    aboutMe: {
+        type: String,
+        required: false
+    },
     memberSince: {
         type: Date,
         required: true

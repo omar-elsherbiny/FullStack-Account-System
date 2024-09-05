@@ -33,9 +33,9 @@
         <% } else {%>
         <h3 id="member-since"> </h3>
         <% } %>
-        <div id="about-me" class="about-me">
+        <div id="about-me-container" class="about-me-container">
           <h2>About Me</h2>
-          <textarea name="about-me-textbox" id="about-me-textbox"></textarea>
+          <p id="about-me" class="about-me"><%=locals.aboutMe%></p>
         </div>
         <% if (canEdit) { %>
         <button class="profile-edit-button" id="profile-edit-button">Edit</button>
@@ -53,10 +53,15 @@
           <% } else { %>
           <input id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" />
           <% } %>
-
-          <button id="profile-edit-update" type="submit">Update Profile</button>
-          <button id="profile-edit-cancel" type="reset">Cancel</button>
         </div>
+
+        <div id="profile-edit-about-me" class="profile-edit-about-me">
+          <h2>About Me</h2>
+          <textarea name="profile-edit-about-me-textbox" id="profile-edit-about-me-textbox"><%=locals.aboutMe%></textarea>
+        </div>
+
+        <button id="profile-edit-update" type="submit">Update Profile</button>
+        <button id="profile-edit-cancel" type="reset">Cancel</button>
       </div>
     </div>
   </main>

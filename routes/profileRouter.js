@@ -19,6 +19,7 @@ router.get('/:username', async (request, result, next) => {
             canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
             memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
             showMemberSince: searched_user.showMemberSince,
+            aboutMe: searched_user.aboutMe
         });
     } else {
         next();

@@ -28,7 +28,7 @@ router.post(
     // body('sign-up-password').trim().notEmpty().isLength({ min: 8 }),
     async (request, result) => {
         let data = {
-            username: request.body['sign-up-username'],
+            username: request.body['sign-up-username'].toLowerCase(),
             hash: await getHash(request.body['sign-up-password']),
         }
 
@@ -70,11 +70,11 @@ router.get('/log-in', (request, result) => {
 
 router.post(
     '/log-in',
-    body('log-in-username').trim().notEmpty().escape(),
+    body('log-in-username').toLowerCase().trim().notEmpty().escape(),
     body('log-in-password').trim().notEmpty(),
     async (request, result) => {
         let data = {
-            username: request.body['log-in-username'],
+            username: request.body['log-in-username'].toLowerCase(),
             password: request.body['log-in-password'],
             keepLogged: request.body['log-in-stay'] == 'on' ? true : false,
         }

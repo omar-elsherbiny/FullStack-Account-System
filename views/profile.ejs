@@ -43,13 +43,15 @@
       </div>
 
       <div id="edit-menu" class="edit-menu hide">
-        <label id="profile-edit-display-name-label" for="profile-edit-display-name">Display name</label>
-        <input id="profile-edit-display-name" name="profile-edit-display-name" placeholder="" value="<%=profileDisplayName%>" type="text" autofocus />
+        <div class="profile-edit-display-name-container">
+          <label class="profile-edit-display-name-label" id="profile-edit-display-name-label" for="profile-edit-display-name">Display name</label>
+          <input class="profile-edit-display-name" id="profile-edit-display-name" name="profile-edit-display-name" placeholder="" value="<%=profileDisplayName%>" type="text" autofocus />
+        </div>
 
-        <div>
-          <label id="profile-edit-show-member-since-label" for="profile-edit-show-member-since">Show members since?</label>
+        <div class="profile-edit-show-member-since-container">
+          <label class="profile-edit-show-member-since-label" id="profile-edit-show-member-since-label" for="profile-edit-show-member-since">Show members since?</label>
           <% if (showMemberSince) { %>
-          <input id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" checked />
+          <input class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" checked />
           <% } else { %>
           <input id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" />
           <% } %>
@@ -60,8 +62,10 @@
           <textarea name="profile-edit-about-me-textbox" id="profile-edit-about-me-textbox"><%=locals.aboutMe%></textarea>
         </div>
 
-        <button id="profile-edit-update" type="submit">Update Profile</button>
-        <button id="profile-edit-cancel" type="reset">Cancel</button>
+        <div class="buttons-edit-container">
+          <button id="profile-edit-update" type="submit">Update Profile</button>
+          <button id="profile-edit-cancel" type="reset">Cancel</button>
+        </div>
       </div>
     </div>
   </main>

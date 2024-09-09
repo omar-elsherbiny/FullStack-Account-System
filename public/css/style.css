@@ -21,7 +21,7 @@ a {
     display: none !important;
 }
 
-#page-404 {
+#error-page {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@ a {
     align-items: center;
 }
 
-#page-404 h1,
-#page-404 h2 {
+#error-page h1,
+#error-page h2 {
     margin: 0;
 }

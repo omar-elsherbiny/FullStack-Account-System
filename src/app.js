@@ -49,7 +49,7 @@ app.use((request, result, next) => {
     result.status(404);
 
     if (request.accepts('html')) {
-        result.render('404');
+        result.render('error', { errorCode: 404, errorMessage: 'Page not found' });
         return;
     }
 

@@ -176,6 +176,14 @@ main {
     overflow-y: auto;
 }
 
+.profile-edit-pfp {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: transparent;
+    border-radius: 1rem;
+    border: black dashed;
+}
+
 .content button {
     position: absolute;
     left: 50%;

@@ -42,7 +42,7 @@
         <% } %>
       </div>
 
-      <div id="edit-menu" class="edit-menu hide">
+      <form action="<%=username%>/update-profile" method="post" id="edit-menu" class="edit-menu hide">
         <div class="profile-edit-display-name-container">
           <label class="profile-edit-display-name-label" id="profile-edit-display-name-label" for="profile-edit-display-name">Display name</label>
           <input class="profile-edit-display-name" id="profile-edit-display-name" name="profile-edit-display-name" placeholder="" value="<%=profileDisplayName%>" type="text" autofocus />
@@ -62,11 +62,15 @@
           <textarea name="profile-edit-about-me-textbox" id="profile-edit-about-me-textbox"><%=locals.aboutMe%></textarea>
         </div>
 
+        <div class="profile-edit-pfp-container">
+          <label for="profile-edit-pfp">Profile Image</label>
+          <input type="file" name="profile-edit-pfp" class="profile-edit-pfp" id="profile-edit-pfp">
+        </div>
         <div class="buttons-edit-container">
           <button id="profile-edit-update" type="submit">Update Profile</button>
           <button id="profile-edit-cancel" type="reset">Cancel</button>
         </div>
-      </div>
+      </form>
     </div>
   </main>
 </body>

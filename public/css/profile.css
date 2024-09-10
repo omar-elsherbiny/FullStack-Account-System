@@ -51,6 +51,7 @@ main {
 
     border-radius: 50%;
     background-color: white;
+    box-sizing: border-box;
     border: 2pt solid black;
 }
 
@@ -177,11 +178,34 @@ main {
 }
 
 .profile-edit-pfp {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: transparent;
-    border-radius: 1rem;
-    border: black dashed;
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+    top: 8rem;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+}
+
+.profile-edit-pfp-label {
+    display: none;
+}
+
+.profile-edit-pfp-label:has(+ .profile-edit-pfp:hover) {
+    display: grid;
+    place-items: center;
+
+    position: absolute;
+    top: 8rem;
+    right: 1.5rem;
+    transform: translateY(-50%);
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%;
+
+    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .content button {
@@ -232,6 +256,23 @@ main {
 
 @media only screen and (max-width:550px) {
     .profile-picture {
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .profile-edit-pfp {
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .profile-edit-pfp-label:has(+ .profile-edit-pfp:hover) {
+        position: absolute;
         left: 50%;
         transform: translate(-50%, -50%);
 

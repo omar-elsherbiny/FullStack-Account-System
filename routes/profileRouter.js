@@ -3,17 +3,32 @@ const router = express.Router();
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads')
+    destination: function (request, file, callback) {
+        callback(null, './uploads');
     },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
+    filename: function (request, file, callback) {
+        callback(null, `pfp_${request.session.user.id}.${getExtension(file.originalname)}`);
     }
 });
-const upload = multer({ storage: storage });
+const upload = multer({
+    storage: storage,
+    fileFilter: function (request, file, callback) {
+        const extension = getExtension(file.originalname);
+        if (!['png', 'jpg', 'jpeg'].includes(extension)) {
+            request.fileValidationError = "Forbidden extension";
+            return callback(null, false, request.fileValidationError);
+        }
+        callback(null, true);
+    },
+    limits: {
+        fileSize: 1024 * 1024 * 2
+    }
+});
 
 const { loginRequired } = require('../src/funcs');
 const collection = require('../src/dbconfig');
+
+const getExtension = (fileName) => fileName.split('.')[fileName.split('.').length - 1];
 
 router.get('/', loginRequired, (request, result) => {
     result.redirect('/profile/' + request.session.user.username);
@@ -55,7 +70,10 @@ router.post(
                 pfp: request.body['profile-edit-pfp'],
             };
 
-            console.log(request.file);
+            if (request.fileValidationError) {
+                request.flash('alerts', [{ content: request.fileValidationError, type: 'caution' }]);
+                throw new Error(request.fileValidationError);
+            }
 
             const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
 

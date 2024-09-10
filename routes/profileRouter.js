@@ -1,5 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+});
+const upload = multer({ storage: storage });
 
 const { loginRequired } = require('../src/funcs');
 const collection = require('../src/dbconfig');
@@ -26,27 +37,33 @@ router.get('/:username', async (request, result, next) => {
     }
 });
 
-router.post('/:username/update-profile', loginRequired, async (request, result, next) => {
-    if (request.session.user.username != request.params.username) {
-        result.status(401).render('error', { errorCode: 401, errorMessage: 'Unauthorized to update profile' });
-        return;
-    }
+router.post(
+    '/:username/update-profile',
+    loginRequired,
+    upload.single('profile-edit-pfp'),
+    async (request, result, next) => {
+        if (request.session.user.username != request.params.username) {
+            result.status(401).render('error', { errorCode: 401, errorMessage: 'Unauthorized to update profile' });
+            return;
+        }
 
-    try {
-        let data = {
-            displayName: request.body['profile-edit-display-name'],
-            showMemberSince: request.body['profile-edit-show-member-since'] == 'on' ? true : false,
-            aboutMe: request.body['profile-edit-about-me-textbox'],
-            pfp: request.body['profile-edit-pfp'],
-        };
+        try {
+            let data = {
+                displayName: request.body['profile-edit-display-name'],
+                showMemberSince: request.body['profile-edit-show-member-since'] == 'on' ? true : false,
+                aboutMe: request.body['profile-edit-about-me-textbox'],
+                pfp: request.body['profile-edit-pfp'],
+            };
 
-        const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
+            console.log(request.file);
 
-        request.flash('alerts', [{ content: 'Profile updated successfully', type: 'success' }]);
-    } catch (error) {
-        request.flash('alerts', [{ content: 'Error updating profile', type: 'error' }]);
-    }
-    result.redirect('/profile');
-});
+            const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
+
+            request.flash('alerts', [{ content: 'Profile updated successfully', type: 'success' }]);
+        } catch (error) {
+            request.flash('alerts', [{ content: 'Error updating profile', type: 'error' }]);
+        }
+        result.redirect('/profile');
+    });
 
 module.exports = router;

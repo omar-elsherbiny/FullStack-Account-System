@@ -31,7 +31,7 @@
         <% if (showMemberSince) { %>
         <h3 id="member-since">Member since: <%=memberSince%></h3>
         <% } else {%>
-        <h3 id="member-since"> </h3>
+        <h3 id="member-since"></h3>
         <% } %>
         <div id="about-me-container" class="about-me-container">
           <h2>About Me</h2>
@@ -51,9 +51,9 @@
         <div class="profile-edit-show-member-since-container">
           <label class="profile-edit-show-member-since-label" id="profile-edit-show-member-since-label" for="profile-edit-show-member-since">Show members since?</label>
           <% if (showMemberSince) { %>
-          <input class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" checked />
+          <input class="profile-edit-show-member-since" class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" checked />
           <% } else { %>
-          <input id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" />
+          <input class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" />
           <% } %>
         </div>
 

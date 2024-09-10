@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    memberSince: {
+        type: Date,
+        required: true
+    },
     displayName: {
         type: String,
         required: false
@@ -26,12 +30,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    memberSince: {
-        type: Date,
-        required: true
-    },
     showMemberSince: {
         type: Boolean,
+        required: false
+    },
+    pfpPath: {
+        type: String,
         required: false
     },
 });

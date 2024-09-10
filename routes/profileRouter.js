@@ -4,7 +4,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (request, file, callback) {
-        callback(null, './uploads');
+        callback(null, './public/uploads');
     },
     filename: function (request, file, callback) {
         callback(null, `pfp_${request.session.user.id}.${getExtension(file.originalname)}`);
@@ -45,7 +45,8 @@ router.get('/:username', async (request, result, next) => {
             canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
             memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
             showMemberSince: searched_user.showMemberSince,
-            aboutMe: searched_user.aboutMe
+            aboutMe: searched_user.aboutMe,
+            pfpPath: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
         });
     } else {
         next();
@@ -67,12 +68,15 @@ router.post(
                 displayName: request.body['profile-edit-display-name'],
                 showMemberSince: request.body['profile-edit-show-member-since'] == 'on' ? true : false,
                 aboutMe: request.body['profile-edit-about-me-textbox'],
-                pfp: request.body['profile-edit-pfp'],
             };
 
             if (request.fileValidationError) {
                 request.flash('alerts', [{ content: request.fileValidationError, type: 'caution' }]);
                 throw new Error(request.fileValidationError);
+            }
+
+            if (request.file) {
+                data.pfpPath = `pfp_${request.session.user.id}.${getExtension(request.file.originalname)}`
             }
 
             const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });

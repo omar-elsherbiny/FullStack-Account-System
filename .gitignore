@@ -1,4 +1,4 @@
 /node_modules
 .env
 .todo
-/uploads
+/public/uploads

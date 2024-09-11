@@ -77,12 +77,11 @@ router.post(
             }
 
             if (request.file) {
-                data.pfpPath = `pfp_${request.session.user.id}.jpeg`
+                data.pfpPath = `pfp_${request.session.user.id}.jpeg`;
+                request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-icon.png';
             }
 
             const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
-
-            request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-icon.png';
 
             request.flash('alerts', [{ content: 'Profile updated successfully', type: 'success' }]);
         } catch (error) {

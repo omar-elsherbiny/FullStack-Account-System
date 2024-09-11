@@ -2,8 +2,8 @@ header {
     background-color: rgb(220, 220, 220);
     display: grid;
     grid-template-columns: 1fr auto;
-    align-items: baseline;
-    padding: 0 3rem;
+    align-items: start;
+    padding: 0 1.5rem;
     height: 5.5rem;
     border-bottom: 2pt black solid;
     box-sizing: border-box;
@@ -15,11 +15,17 @@ header a {
 
 header div {
     display: flex;
+    align-items: center;
+    height: 100%;
     gap: 1rem;
 }
 
-@media only screen and (max-width:425px) {
-    header {
-        padding: 0 1.5rem;
-    }
+header .header-profile-picture {
+    width: 3.5rem;
+    height: 3.5rem;
+
+    border-radius: 50%;
+    background-color: white;
+    box-sizing: border-box;
+    border: 2pt solid black;
 }

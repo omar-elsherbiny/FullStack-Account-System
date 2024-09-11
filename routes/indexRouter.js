@@ -6,6 +6,7 @@ router.get('/', async (request, result) => {
 
     if (request.session.user) {
         options.username = request.session.user.username;
+        options.pfpPath = request.session.user.pfpPath;
     }
 
     result.render('index', options);

@@ -7,14 +7,14 @@ const storage = multer.diskStorage({
         callback(null, './public/uploads');
     },
     filename: function (request, file, callback) {
-        callback(null, `pfp_${request.session.user.id}.${getExtension(file.originalname)}`);
+        callback(null, `pfp_${request.session.user.id}.jpeg`);
     }
 });
 const upload = multer({
     storage: storage,
     fileFilter: function (request, file, callback) {
         const extension = getExtension(file.originalname);
-        if (!['png', 'jpg', 'jpeg'].includes(extension)) {
+        if (extension != 'jpeg') {
             request.fileValidationError = "Forbidden extension";
             return callback(null, false, request.fileValidationError);
         }
@@ -40,13 +40,14 @@ router.get('/:username', async (request, result, next) => {
         result.render('profile', {
             alerts: request.flash('alerts'),
             username: request.session.user.username,
+            pfpPath: request.session.user.pfpPath,
             profileUsername: searched_user.username,
             profileDisplayName: searched_user.displayName,
             canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
             memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
             showMemberSince: searched_user.showMemberSince,
             aboutMe: searched_user.aboutMe,
-            pfpPath: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
+            pfpPathSearched: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
         });
     } else {
         next();
@@ -76,10 +77,12 @@ router.post(
             }
 
             if (request.file) {
-                data.pfpPath = `pfp_${request.session.user.id}.${getExtension(request.file.originalname)}`
+                data.pfpPath = `pfp_${request.session.user.id}.jpeg`
             }
 
             const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
+
+            request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-icon.png';
 
             request.flash('alerts', [{ content: 'Profile updated successfully', type: 'success' }]);
         } catch (error) {

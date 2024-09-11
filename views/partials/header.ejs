@@ -6,6 +6,7 @@
   <div>
     <% if (locals.username) { %>
     Welcome<a href="/profile"><%= username %></a>
+    <img class="header-profile-picture" src=<%= pfpPath %> alt="header profile picture of user">
     <% } else { %>
     <a href="/account/log-in">Log in</a>
     <a href="/account/sign-up">Sign up</a>

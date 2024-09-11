@@ -2,15 +2,16 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 
+const { loginRequired } = require('../src/funcs');
 const { getHash, compareHash } = require('../src/crypt');
 const collection = require('../src/dbconfig');
 
-router.get('/', (request, result) => {
-    if (request.session.user) {
-        result.send('account change page');
-    } else {
-        result.redirect('/account/log-in');
-    }
+router.get('/', loginRequired, (request, result) => {
+    result.render('account', {
+        alerts: request.flash('alerts'),
+        username: request.session.user.username,
+        pfpPath: request.session.user.pfpPath,
+    });
 });
 
 router.get('/sign-up', (request, result) => {
@@ -89,7 +90,11 @@ router.post(
         const user_check = await collection.findOne({ username: data.username });
 
         if (user_check && await compareHash(data.password, user_check.hash)) {
-            request.session.user = { id: user_check._id, username: data.username };
+            request.session.user = {
+                id: user_check._id,
+                username: data.username,
+                pfpPath: user_check.pfpPath ? '/uploads/' + user_check.pfpPath : '/media/profile-icon.png',
+            };
             request.session.keepLogged = data.keepLogged;
             request.session.timestamp = Date.now();
             console.log(`User "${data.username}" logged in`);

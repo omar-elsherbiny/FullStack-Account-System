@@ -254,8 +254,8 @@ main {
 
 @media only screen and (max-width:815px) {
     .profile-container {
-        height: 100%;
-        width: 100%;
+        height: calc(100vh - 5.5rem);
+        width: 100vw;
         border: none;
     }
 
@@ -325,15 +325,84 @@ main {
 }
 
 .modal {
-    position: absolute;
+    position: fixed;
+
     top: 0;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     right: 0;
+
+    width: 40rem;
+    height: 40rem;
+
+    margin: auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: white;
+
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 1rem;
+
+    box-sizing: border-box;
+    border: 2pt solid black;
 }
 
-.crop-confirm {}
+.crop-editor {
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 1rem;
+
+    display: grid;
+    grid-template-rows: 1fr 2rem;
+}
+
+.cr-boundary {
+    box-sizing: border-box;
+    border: 2pt solid black;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.backdrop {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.crop-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    max-height: 2.5rem;
+}
+
+.crop-cancel,
+.crop-confirm {
+    max-height: 2.5rem;
+    width: fit-content;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 2pt solid black;
+    cursor: pointer;
+    transition: background-color 100ms ease, color 100ms ease;
+}
 
 .cr-viewport {
     border-radius: 50% !important;
+}
+
+@media only screen and (max-width: 690px) {
+    .modal {
+        width: 100svw;
+        height: 100svh;
+
+        border-radius: 0;
+        border: none;
+    }
 }

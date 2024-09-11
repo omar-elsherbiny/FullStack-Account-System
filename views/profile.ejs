@@ -81,10 +81,18 @@
       </form>
     </div>
   </main>
-  <div class="modal hide" id="modal">
-    <div class="crop-editor" id="crop-editor"></div>
-    <button class="crop-confirm" id="crop-confirm">BUTTON</button>
+
+  <div class="modal-container hide" id="modal-container">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="modal" id="modal">
+      <div class="crop-editor" id="crop-editor"></div>
+      <div class="crop-buttons" id="crop-buttons">
+        <button class="crop-confirm" id="crop-confirm">Confirm</button>
+        <button class="crop-cancel" id="crop-cancel">Cancel</button>
+      </div>
+    </div>
   </div>
+
 </body>
 
 </html>

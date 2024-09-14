@@ -261,6 +261,10 @@ main {
     gap: 0.75rem;
 }
 
+.pfp-hamburger-menu>label:hover {
+    text-decoration: underline 1.5pt;
+}
+
 .content button {
     margin-top: auto;
     margin-bottom: 0;

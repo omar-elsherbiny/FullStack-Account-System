@@ -16,7 +16,12 @@
   <%- include('./partials/header.ejs') %>
 
   <main>
-    <a href="/account/log-out">Log Out</a>
+    <form action="/account/log-out" method="POST">
+      <button type="submit">Log Out</button>
+    </form>
+    <form action="/account/delete-account" method="POST">
+      <button id="delete-button" type="submit">Delete Account</button>
+    </form>
   </main>
 </body>
 

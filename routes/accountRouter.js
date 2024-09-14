@@ -107,9 +107,23 @@ router.post(
         }
     });
 
-router.get('/log-out', async (request, result) => { // convert to post
+router.post('/log-out', async (request, result) => {
     request.session.user = null;
     request.flash('alerts', [{ content: 'Logged out successfully', type: 'success' }]);
+    result.redirect('/');
+});
+
+router.post('/delete-account', async (request, result) => {
+    try {
+        const prevUsername = request.session.user.username;
+        collection.deleteOne({ _id: request.session.user.id }).then((result) => {
+            console.log(`User '${prevUsername}' deleted`);
+        });
+        request.session.user = null;
+        request.flash('alerts', [{ content: 'Deleted account successfully', type: 'caution' }]);
+    } catch (error) {
+        request.flash('alerts', [{ content: 'Error deleting account', type: 'error' }]);
+    }
     result.redirect('/');
 });
 

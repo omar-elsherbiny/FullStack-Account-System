@@ -40,6 +40,7 @@ router.get('/:username', async (request, result, next) => {
         result.render('profile', {
             alerts: request.flash('alerts'),
             username: request.session.user.username,
+            displayName: request.session.user.displayName,
             pfpPath: request.session.user.pfpPath,
             profileUsername: searched_user.username,
             profileDisplayName: searched_user.displayName,
@@ -80,6 +81,8 @@ router.post(
                 data.pfpPath = `pfp_${request.session.user.id}.jpeg`;
                 request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-icon.png';
             }
+
+            request.session.user.displayName = data.displayName;
 
             const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
 

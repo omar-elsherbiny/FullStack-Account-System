@@ -6,6 +6,7 @@ router.get('/', async (request, result) => {
 
     if (request.session.user) {
         options.username = request.session.user.username;
+        options.displayName = request.session.user.displayName;
         options.pfpPath = request.session.user.pfpPath;
     }
 

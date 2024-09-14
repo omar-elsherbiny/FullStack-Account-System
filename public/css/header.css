@@ -13,7 +13,7 @@ header a {
     width: fit-content;
 }
 
-header div {
+header>div {
     display: flex;
     align-items: center;
     height: 100%;
@@ -25,7 +25,7 @@ header .header-profile-picture {
     height: 3.5rem;
 
     border-radius: 50%;
-    background-color: white;
+    background-color: transparent;
     box-sizing: border-box;
     border: 2pt solid black;
 }

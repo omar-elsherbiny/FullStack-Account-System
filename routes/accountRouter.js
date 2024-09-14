@@ -10,6 +10,7 @@ router.get('/', loginRequired, (request, result) => {
     result.render('account', {
         alerts: request.flash('alerts'),
         username: request.session.user.username,
+        displayName: request.session.user.displayName,
         pfpPath: request.session.user.pfpPath,
     });
 });
@@ -93,6 +94,7 @@ router.post(
             request.session.user = {
                 id: user_check._id,
                 username: data.username,
+                displayName: user_check.displayName,
                 pfpPath: user_check.pfpPath ? '/uploads/' + user_check.pfpPath : '/media/profile-icon.png',
             };
             request.session.keepLogged = data.keepLogged;

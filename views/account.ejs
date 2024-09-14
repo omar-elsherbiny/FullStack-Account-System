@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <script src="/js/script.js" defer></script>
+  <script src="/js/account.js" defer></script>
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/account.css" />
   <title>Account System: account</title>
@@ -16,13 +17,37 @@
   <%- include('./partials/header.ejs') %>
 
   <main>
-    <form action="/account/log-out" method="POST">
-      <button type="submit">Log Out</button>
+    <h1>Account Settings</h1>
+    <form class="account-form">
+      <h2 class="account-form-header">Account</h2>
+
+      <div class="account-form-input-container">
+        <label class="account-form-username-label" id="account-form-username-label" for="account-username">Username</label>
+        <input inert class="account-form-username" id="account-form-username" name="account-username" type="text" value="<%=username%>" />
+        <button type="button" class="account-form-username-edit" id="account-form-username-edit">Edit</button>
+      </div>
+
+      <div class="account-form-input-container">
+        <label class="account-form-password-label" id="account-form-password-label" for="account-password">Password</label>
+        <input inert class="account-form-password" id="account-form-password" name="account-password" placeholder="" type="password" value="********" />
+        <button type="button" class="account-form-password-edit" id="account-form-password-edit">Edit</button>
+      </div>
     </form>
-    <form action="/account/delete-account" method="POST">
-      <button id="delete-button" type="submit">Delete Account</button>
-    </form>
+
+    <div class="account-other-settings">
+      <form action="/account/log-out" method="POST">
+        <button class="log-out-button" type="submit">Log Out</button>
+      </form>
+      <form action="/account/delete-account" method="POST">
+        <button class="delete-button" id="delete-button" type="submit">Delete Account</button>
+      </form>
+    </div>
   </main>
+
+  <div class="modal-container hide" id="modal-container">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="modal" id="modal">modal</div>
+  </div>
 </body>
 
 </html>

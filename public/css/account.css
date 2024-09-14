@@ -1,5 +1,135 @@
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+select:focus,
+textarea {
+    font-size: 16px;
+}
+
 main {
-    height: calc(100vh - 5.5rem);
+    margin-top: 1rem;
+    height: calc(100vh - 6.5rem);
     display: grid;
-    place-items: center;
+    justify-items: center;
+    align-content: start;
+    gap: 2rem;
+}
+
+.account-form {
+    position: relative;
+    display: grid;
+    padding: 3rem 3rem;
+    border-radius: 1rem;
+    border: 2pt solid black;
+    gap: 2rem;
+}
+
+.account-form-header {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-65%);
+    margin: 0;
+    padding: 0 0.5rem;
+    background-color: white;
+}
+
+.account-form-input-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 4rem;
+    gap: 1rem;
+}
+
+.account-form-username-label,
+.account-form-password-label {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-65%);
+    margin: 0;
+    padding: 0 0.5rem;
+    font-size: 14pt;
+    font-weight: 650;
+    background-color: white;
+}
+
+.account-form-username,
+.account-form-password {
+    width: calc(100% - 1rem - 4pt);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2pt solid black;
+}
+
+.account-form-username-edit,
+.account-form-password-edit,
+.log-out-button,
+.delete-button {
+    cursor: pointer;
+
+    font-size: 12pt;
+    font-weight: 650;
+
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2pt solid black;
+}
+
+.delete-button {
+    border-color: #e32646;
+}
+
+.account-other-settings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+@media only screen and (max-width:425px) {
+    main {
+        align-content: space-around;
+    }
+
+    .account-form {
+        border: none;
+    }
+
+    .account-form-header {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -65%);
+    }
+}
+
+.modal-container {}
+
+.backdrop {
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    background-color: white;
 }

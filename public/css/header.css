@@ -14,10 +14,17 @@ header a {
 }
 
 header>div {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 3.5rem;
     align-items: center;
     height: 100%;
     gap: 1rem;
+}
+
+header>div>h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 header .header-profile-picture {

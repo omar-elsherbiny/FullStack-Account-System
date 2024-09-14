@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 const { loginRequired } = require('../src/funcs');
 const { getHash, compareHash } = require('../src/crypt');
@@ -115,9 +116,18 @@ router.post('/log-out', async (request, result) => {
 
 router.post('/delete-account', async (request, result) => {
     try {
-        const prevUsername = request.session.user.username;
-        collection.deleteOne({ _id: request.session.user.id }).then((result) => {
-            console.log(`User '${prevUsername}' deleted`);
+        const prevUser = request.session.user;
+        if (prevUser.pfpPath != '/media/profile-icon.png') {
+            fs.unlink(`./public/uploads/pfp_${prevUser.id}.jpeg`, (err) => {
+                if (err) {
+                    console.error(`Error removing file: ${err}`);
+                } else {
+                    console.log(`File has been successfully removed.`);
+                }
+            });
+        }
+        collection.deleteOne({ _id: prevUser.id }).then((result) => {
+            console.log(`User '${prevUser.username}' deleted`);
         });
         request.session.user = null;
         request.flash('alerts', [{ content: 'Deleted account successfully', type: 'caution' }]);

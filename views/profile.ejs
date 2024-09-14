@@ -50,7 +50,7 @@
       <form action="<%=username%>/update-profile" method="post" enctype="multipart/form-data" id="edit-menu" class="edit-menu hide">
         <div class="profile-edit-display-name-container">
           <label class="profile-edit-display-name-label" id="profile-edit-display-name-label" for="profile-edit-display-name">Display name</label>
-          <input class="profile-edit-display-name" id="profile-edit-display-name" name="profile-edit-display-name" placeholder="" value="<%=profileDisplayName%>" type="text" autofocus />
+          <input class="profile-edit-display-name" id="profile-edit-display-name" name="profile-edit-display-name" value="<%=profileDisplayName%>" type="text" autofocus />
         </div>
 
         <div class="profile-edit-show-member-since-container">
@@ -58,7 +58,7 @@
           <% if (showMemberSince) { %>
           <input class="profile-edit-show-member-since" class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" checked />
           <% } else { %>
-          <input class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" placeholder="" type="checkbox" />
+          <input class="profile-edit-show-member-since" id="profile-edit-show-member-since" name="profile-edit-show-member-since" type="checkbox" />
           <% } %>
         </div>
 

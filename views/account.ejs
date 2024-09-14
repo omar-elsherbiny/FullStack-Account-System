@@ -46,7 +46,24 @@
 
   <div class="modal-container hide" id="modal-container">
     <div class="backdrop" id="backdrop"></div>
-    <div class="modal" id="modal">modal</div>
+    <div class="modal hide" id="username-edit-modal">
+      <h3>Edit Username</h3>
+      <div class="username-edit-field-container">
+        <label for="username-edit-field">Username</label>
+        <input id="username-edit-field" name="username-edit-field" value="<%= username %>" type="text" autofocus>
+      </div>
+      <div class="username-edit-field-container">
+        <label for="password-edit-field">Current Password</label>
+        <input id="password-edit-field" name="password-edit-field" type="text">
+      </div>
+      <div class="buttons">
+        <button class="crop-confirm" id="crop-confirm">Confirm</button>
+        <button class="crop-cancel" id="crop-cancel">Cancel</button>
+      </div>
+    </div>
+    <div class="modal hide" id="password-edit-modal">
+      zigger
+    </div>
   </div>
 </body>
 

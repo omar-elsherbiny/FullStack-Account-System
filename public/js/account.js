@@ -3,13 +3,18 @@ const accountFormPasswordEdit = document.getElementById('account-form-password-e
 
 const modalContainer = document.getElementById('modal-container');
 const backdrop = document.getElementById('backdrop');
-const modal = document.getElementById('modal');
+const usernameEditModal = document.getElementById('username-edit-modal');
+const passwordEditModal = document.getElementById('password-edit-modal');
 
 accountFormUsernameEdit.addEventListener('click', e => {
     modalContainer.classList.remove('hide');
+    usernameEditModal.classList.remove('hide');
+    passwordEditModal.classList.add('hide');
 });
 accountFormPasswordEdit.addEventListener('click', e => {
     modalContainer.classList.remove('hide');
+    usernameEditModal.classList.add('hide');
+    passwordEditModal.classList.remove('hide');
 });
 
 backdrop.addEventListener('click', closeModal);

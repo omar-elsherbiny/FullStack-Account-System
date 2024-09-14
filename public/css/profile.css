@@ -189,9 +189,8 @@ main {
     border-radius: calc(1rem - 2pt);
 }
 
-.profile-edit-pfp {
+.edit-profile-picture {
     cursor: pointer;
-    opacity: 0;
     position: absolute;
     top: 8rem;
     right: 1.5rem;
@@ -201,23 +200,66 @@ main {
     border-radius: 50%;
 }
 
-.profile-edit-pfp-label {
-    display: none;
-}
-
-.profile-edit-pfp-label:has(+ .profile-edit-pfp:hover) {
+.profile-edit-pfp-icon {
+    pointer-events: none;
     display: grid;
     place-items: center;
 
-    position: absolute;
-    top: 8rem;
-    right: 1.5rem;
-    transform: translateY(-50%);
-    width: 12rem;
-    height: 12rem;
-    border-radius: 50%;
+    opacity: 0;
 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    border-radius: 50%;
+}
+
+.hamburger-menu-container {
+    width: 100%;
+    height: 100%;
+}
+
+.edit-profile-picture:hover:not(:has(.hamburger-menu-container:hover)) .profile-edit-pfp-icon {
+    opacity: 1;
     background-color: rgba(0, 0, 0, 0.25);
+}
+
+.hamburger-menu-container {
+    cursor: default;
+}
+
+.hamburger-menu-container>.pfp-hamburger-menu {
+    z-index: 1;
+    top: 10rem;
+    left: 50%;
+    transform-origin: top;
+    transform: translate(-50%, 0);
+}
+
+.hamburger-menu-container>.pfp-hamburger-menu.closed {
+    transform: translate(-50%, 0) scale(0.8);
+}
+
+.profile-edit-pfp {
+    cursor: pointer;
+    width: 0;
+    opacity: 0;
+}
+
+.pfp-hamburger-menu>label {
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 650;
+    font-size: 13pt;
+
+    gap: 0.75rem;
 }
 
 .content button {
@@ -273,10 +315,9 @@ main {
         height: 9rem;
     }
 
-    .profile-edit-pfp {
+    .edit-profile-picture {
         left: 50%;
         transform: translate(-50%, -50%);
-
         width: 9rem;
         height: 9rem;
     }

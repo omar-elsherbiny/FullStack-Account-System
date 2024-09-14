@@ -21,6 +21,7 @@ header>div {
 }
 
 header .header-profile-picture {
+    cursor: pointer;
     width: 3.5rem;
     height: 3.5rem;
 
@@ -38,6 +39,7 @@ header .header-profile-picture {
 }
 
 .hamburger-menu {
+    z-index: 1000;
     position: relative;
     top: 5rem;
     right: 1.5rem;
@@ -67,21 +69,28 @@ header .header-profile-picture {
     pointer-events: none;
 }
 
-.hamburger-menu>div {
+.hamburger-menu>a {
     display: flex;
     justify-content: start;
     align-items: center;
     width: 100%;
-}
-
-.hamburger-menu a {
     color: aliceblue;
     text-decoration: none;
-    margin-left: 1rem;
     font-weight: 650;
     font-size: 13pt;
+
+    gap: 0.75rem;
 }
 
 .hamburger-menu a:hover {
     text-decoration: underline 1.5pt;
+}
+
+.profile-edit-remove-pfp {
+    appearance: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }

@@ -81,3 +81,17 @@ function closePfpModal() {
         profileEditPfp.files = container.files;
     }
 }
+
+const editProfilePicture = document.getElementById('edit-profile-picture');
+const editHamburgerMenu = document.getElementById('edit-hamburger-menu');
+
+editProfilePicture.addEventListener('click', event => {
+    editHamburgerMenu.classList.toggle('closed');
+});
+
+document.addEventListener('click', event => {
+    if (!editHamburgerMenu.contains(event.target) &&
+        !editProfilePicture.contains(event.target)) {
+        editHamburgerMenu.classList.add('closed');
+    }
+});

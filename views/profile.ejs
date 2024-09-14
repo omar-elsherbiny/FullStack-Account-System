@@ -67,12 +67,32 @@
           <textarea name="profile-edit-about-me-textbox" id="profile-edit-about-me-textbox"><%=locals.aboutMe%></textarea>
         </div>
 
-        <label for="profile-edit-pfp" class="profile-edit-pfp-label">
-          <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 256 256">
-            <path fill="#ffffff" d="m230.14 70.54l-44.68-44.69a20 20 0 0 0-28.29 0L33.86 149.17A19.85 19.85 0 0 0 28 163.31V208a20 20 0 0 0 20 20h44.69a19.86 19.86 0 0 0 14.14-5.86L230.14 98.82a20 20 0 0 0 0-28.28M91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z" />
-          </svg>
-        </label>
-        <input type="file" name="profile-edit-pfp" accept=".png,.jpg,.jpeg,.webp" class="profile-edit-pfp" id="profile-edit-pfp">
+        <div class="edit-profile-picture" id="edit-profile-picture">
+          <div class="profile-edit-pfp-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 256 256">
+              <path fill="#000000" d="m230.14 70.54l-44.68-44.69a20 20 0 0 0-28.29 0L33.86 149.17A19.85 19.85 0 0 0 28 163.31V208a20 20 0 0 0 20 20h44.69a19.86 19.86 0 0 0 14.14-5.86L230.14 98.82a20 20 0 0 0 0-28.28M91 204H52v-39l84-84l39 39Zm101-101l-39-39l18.34-18.34l39 39Z" />
+            </svg>
+          </div>
+          <div class="hamburger-menu-container">
+            <div class="pfp-hamburger-menu hamburger-menu closed" id="edit-hamburger-menu">
+              <label for="profile-edit-pfp">
+                <input type="file" name="profile-edit-pfp" accept=".png,.jpg,.jpeg,.webp" class="profile-edit-pfp" id="profile-edit-pfp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                  <path fill="currentColor" d="M228 144v64a12 12 0 0 1-12 12H40a12 12 0 0 1-12-12v-64a12 12 0 0 1 24 0v52h152v-52a12 12 0 0 1 24 0M96.49 80.49L116 61v83a12 12 0 0 0 24 0V61l19.51 19.52a12 12 0 1 0 17-17l-40-40a12 12 0 0 0-17 0l-40 40a12 12 0 1 0 17 17Z" />
+                </svg>
+                Change
+              </label>
+
+              <label for="profile-edit-remove-pfp">
+                <button type="button" onclick="alert('zig')" name="profile-edit-remove-pfp" class="profile-edit-remove-pfp" id="profile-edit-remove-pfp"></button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+                  <path fill="currentColor" d="M216 48h-36V36a28 28 0 0 0-28-28h-48a28 28 0 0 0-28 28v12H40a12 12 0 0 0 0 24h4v136a20 20 0 0 0 20 20h128a20 20 0 0 0 20-20V72h4a12 12 0 0 0 0-24M100 36a4 4 0 0 1 4-4h48a4 4 0 0 1 4 4v12h-56Zm88 168H68V72h120Zm-72-100v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0m48 0v64a12 12 0 0 1-24 0v-64a12 12 0 0 1 24 0" />
+                </svg>
+                Remove
+              </label>
+            </div>
+          </div>
+        </div>
 
         <div class="buttons-edit-container">
           <button id="profile-edit-update" type="submit">Update Profile</button>

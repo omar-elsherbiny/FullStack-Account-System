@@ -69,7 +69,7 @@ header .header-profile-picture {
     pointer-events: none;
 }
 
-.hamburger-menu button,
+header .hamburger-menu button,
 .hamburger-menu a {
     display: flex;
     justify-content: start;

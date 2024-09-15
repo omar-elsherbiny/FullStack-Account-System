@@ -142,8 +142,47 @@ router.post(
     body('username-edit-field').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 25 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
     body('username-password-confirm-field').trim().notEmpty(),
     async (request, result) => {
+        let data = {
+            username: request.body['username-edit-field'].toLowerCase(),
+            password: request.body['username-password-confirm-field'],
+        }
+
+        const validation = validationResult(request);
+
+        if (!validation.isEmpty()) {
+            request.flash('alerts', [{ content: 'Invalid username or password', type: 'error' }]);
+            result.redirect('/account?modal=0');
+            console.log(validation);
+            return;
+        }
+
+        const user_check = await collection.findOne({ _id: request.session.user.id });
+
+        if (!(user_check && await compareHash(data.password, user_check.hash))) {
+            request.flash('alerts', [{ content: 'Incorrect password', type: 'error' }]);
+            result.redirect('/account?modal=0');
+            return;
+        }
+
+        if (data.username == request.session.user.username) {
+            request.flash('alerts', [{ content: 'This is already your username', type: 'info' }]);
+            result.redirect('/account?modal=0');
+            return;
+        }
+
+        if (await collection.findOne({ username: data.username })) {
+            request.flash('alerts', [{ content: 'Username already taken', type: 'error' }]);
+            result.redirect('/account?modal=0');
+            return;
+        }
+
+        request.session.user.username = data.username;
+        await collection.findOneAndUpdate(
+            { _id: request.session.user.id },
+            { username: data.username }
+        );
+
         request.flash('alerts', [{ content: 'Updated username successfully', type: 'success' }]);
-        // request.flash('alerts', [{ content: 'Invalid username or password', type: 'error' }]);
         result.redirect('/account');
     });
 
@@ -153,6 +192,9 @@ router.post(
     body('password-new-field').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     body('password-confirm-field').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     async (request, result) => {
+
+        const validation = validationResult(request);
+
         request.flash('alerts', [{ content: 'Updated password successfully', type: 'success' }]);
         result.redirect('/account');
     });

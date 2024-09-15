@@ -84,7 +84,7 @@ router.post(
 
             request.session.user.displayName = data.displayName;
 
-            const user = await collection.findOneAndUpdate({ _id: request.session.user.id }, data, { new: true });
+            await collection.findOneAndUpdate({ _id: request.session.user.id }, data);
 
             request.flash('alerts', [{ content: 'Profile updated successfully', type: 'success' }]);
         } catch (error) {

@@ -16,11 +16,11 @@
     <h2>Sign up</h2>
 
     <label id="sign-up-username-label" for="sign-up-username">Username</label>
-    <input id="sign-up-username" name="sign-up-username" placeholder="" type="text" required minlength="3" maxlength="25" title="Username must be between 3 and 25 characters long" pattern="/^[A-Za-z\d_\-\.!#$%&]{3,25}$/"/>
+    <input id="sign-up-username" name="sign-up-username" placeholder="" type="text" required minlength="3" maxlength="25" title="Username must be between 3 and 25 characters long" pattern="^[A-Za-z\d_\-\.!#$%&]{3,25}$"/>
 
     <label id="sign-up-password-label" for="sign-up-password">Password</label>
     <input id="sign-up-password" name="sign-up-password" placeholder="" type="password" required title="Password must have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character" />
-    <!-- minlength="8" pattern="/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !\x22#$%&'()*+,\-./:;&gt=&lt?@[\\\]^_`{|}~])[A-Za-z\d !\x22#$%&'()*+,\-./:;&gt=&lt=>?@[\\\]^_`{|}~]{8,}(?&lt! )$/" -->
+    <!-- minlength="8" pattern="^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !\x22#$%&'()*+,\-./:;&gt=&lt?@[\\\]^_`{|}~])[A-Za-z\d !\x22#$%&'()*+,\-./:;&gt=&lt=>?@[\\\]^_`{|}~]{8,}(?&lt! )$" -->
 
     <p>
       Don't have an account? <strong> <a href="/account/log-in">Log in</a></strong>

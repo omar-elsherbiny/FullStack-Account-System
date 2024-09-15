@@ -106,13 +106,14 @@ main {
     width: 40rem;
     height: 40rem;
 
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 1rem;
     background-color: white;
 
-    /* display: grid;
-    grid-template-rows: 1fr auto;
-    gap: 1rem; */
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+    align-items: center;
 
     box-sizing: border-box;
     border: 2pt solid black;
@@ -127,6 +128,79 @@ main {
     right: 0;
 }
 
+#username-edit-modal {
+    height: 25rem;
+}
+
+#password-edit-modal {
+    height: 25rem;
+    gap: 0;
+}
+
+#password-edit-modal>.input-container {
+    margin: 0.5rem 0;
+}
+
+.input-container:has(>#password-current-field) {
+    align-self: end;
+}
+
+.input-container:has(>#password-confirm-field) {
+    align-self: start;
+}
+
+.modal>h3 {
+    font-size: 16pt;
+    align-self: start;
+    margin: 0;
+}
+
+.input-container {
+    position: relative;
+    height: fit-content;
+    margin: 1rem 0;
+}
+
+#username-edit-field-container {
+    align-self: end;
+}
+
+#username-password-confirm-field-container {
+    align-self: start;
+}
+
+.field-label {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-65%);
+    margin: 0;
+    padding: 0 0.5rem;
+    font-size: 14pt;
+    font-weight: 650;
+    background-color: white;
+}
+
+.field {
+    width: calc(100% - 1rem - 4pt);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2pt solid black;
+}
+
+.buttons {
+    align-self: end;
+}
+
+.buttons>button {
+    cursor: pointer;
+    font-size: 12pt;
+    font-weight: 650;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2pt solid black;
+}
+
 @media only screen and (max-width: 690px) {
     .modal {
         width: 100svw;
@@ -134,5 +208,23 @@ main {
 
         border-radius: 0;
         border: none;
+    }
+
+    #username-edit-modal,
+    #password-edit-modal {
+        padding: 2rem;
+        gap: 3rem;
+
+        width: 100svw;
+        height: 100svh;
+    }
+
+    #password-edit-modal {
+        gap: 1.5rem;
+    }
+
+    #username-edit-modal>h3,
+    #password-edit-modal>h3 {
+        font-size: 20pt;
     }
 }

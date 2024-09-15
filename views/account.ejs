@@ -38,9 +38,7 @@
       <form action="/account/log-out" method="POST">
         <button class="log-out-button" type="submit">Log Out</button>
       </form>
-      <form action="/account/delete-account" method="POST">
-        <button class="delete-button" id="delete-button" type="submit">Delete Account</button>
-      </form>
+      <button class="delete-button" id="delete-button">Delete Account</button>
     </div>
   </main>
 
@@ -78,6 +76,13 @@
       <div class="buttons">
         <button type="submit" class="password-change-confirm" id="password-change-confirm">Confirm</button>
         <button type="reset" class="password-change-cancel" id="password-change-cancel">Cancel</button>
+      </div>
+    </form>
+    <form action="/account/delete-account" method="POST" class="modal hide" id="delete-account-modal">
+      <h3>Are you sure? this action can not be undone.</h3>
+      <div class="buttons">
+        <button type="submit" id="delete-confirm">Confirm</button>
+        <button type="reset" id="delete-cancel">Cancel</button>
       </div>
     </form>
   </div>

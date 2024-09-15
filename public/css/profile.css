@@ -145,7 +145,7 @@ main {
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 1rem;
+    padding: calc(1rem - 2pt);
     box-sizing: border-box;
 
     font-weight: 500;

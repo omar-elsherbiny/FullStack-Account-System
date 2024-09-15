@@ -150,6 +150,7 @@ main {
 }
 
 .modal>h3 {
+    text-align: center;
     font-size: 16pt;
     align-self: start;
     margin: 0;
@@ -167,6 +168,17 @@ main {
 
 #username-password-confirm-field-container {
     align-self: start;
+}
+
+#delete-account-modal {
+    width: 20rem;
+    height: 12rem;
+    display: grid;
+}
+
+#delete-confirm {
+    background-color: #e32646;
+    color: white;
 }
 
 .field-label {
@@ -226,5 +238,10 @@ main {
     #username-edit-modal>h3,
     #password-edit-modal>h3 {
         font-size: 20pt;
+    }
+
+    #delete-account-modal {
+        border: black 2pt solid;
+        border-radius: 1rem;
     }
 }

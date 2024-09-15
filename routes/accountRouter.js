@@ -152,7 +152,6 @@ router.post(
         if (!validation.isEmpty()) {
             request.flash('alerts', [{ content: 'Invalid username or password', type: 'error' }]);
             result.redirect('/account?modal=0');
-            console.log(validation);
             return;
         }
 
@@ -164,7 +163,7 @@ router.post(
             return;
         }
 
-        if (data.username == request.session.user.username) {
+        if (data.username === request.session.user.username) {
             request.flash('alerts', [{ content: 'This is already your username', type: 'info' }]);
             result.redirect('/account?modal=0');
             return;
@@ -192,8 +191,44 @@ router.post(
     body('password-new-field').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     body('password-confirm-field').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     async (request, result) => {
+        let data = {
+            currentPassword: request.body['password-current-field'],
+            newPassword: request.body['password-new-field'],
+            confirmPassword: request.body['password-confirm-field'],
+        }
 
         const validation = validationResult(request);
+
+        if (!validation.isEmpty()) {
+            request.flash('alerts', [{ content: 'Invalid password', type: 'error' }]);
+            result.redirect('/account?modal=1');
+            return;
+        }
+
+        const user_check = await collection.findOne({ _id: request.session.user.id });
+
+        if (!(user_check && await compareHash(data.currentPassword, user_check.hash))) {
+            request.flash('alerts', [{ content: 'Incorrect current password', type: 'error' }]);
+            result.redirect('/account?modal=1');
+            return;
+        }
+
+        if (data.currentPassword === data.newPassword) {
+            request.flash('alerts', [{ content: 'New password must differ from the old one', type: 'error' }]);
+            result.redirect('/account?modal=1');
+            return;
+        }
+
+        if (data.newPassword !== data.confirmPassword) {
+            request.flash('alerts', [{ content: 'Passwords do not match', type: 'error' }]);
+            result.redirect('/account?modal=1');
+            return;
+        }
+
+        await collection.findOneAndUpdate(
+            { _id: request.session.user.id },
+            { hash: await getHash(data.newPassword) }
+        );
 
         request.flash('alerts', [{ content: 'Updated password successfully', type: 'success' }]);
         result.redirect('/account');

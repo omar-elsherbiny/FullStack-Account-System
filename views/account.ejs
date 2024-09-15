@@ -50,11 +50,11 @@
       <h3>Edit Username</h3>
       <div class="input-container" id="username-edit-field-container">
         <label class="field-label" for="username-edit-field">Username</label>
-        <input class="field" id="username-edit-field" name="username-edit-field" value="<%= username %>" type="text" autofocus>
+        <input class="field" id="username-edit-field" name="username-edit-field" value="<%= username %>" type="text" autofocus required minlength="3" maxlength="25" title="Username must be between 3 and 25 characters long" pattern="/^[A-Za-z\d_\-\.!#$%&]{3,25}$/">
       </div>
       <div class="input-container" id="username-password-confirm-field-container">
         <label class="field-label" for="username-password-confirm-field">Current Password</label>
-        <input class="field" id="username-password-confirm-field" name="password-confirm-field" type="password">
+        <input class="field" id="username-password-confirm-field" name="password-confirm-field" type="password" required>
       </div>
       <div class="buttons">
         <button type="submit" class="username-change-confirm" id="username-change-confirm">Confirm</button>
@@ -65,15 +65,15 @@
       <h3>Change Password</h3>
       <div class="input-container">
         <label class="field-label" for="password-current-field">Current password</label>
-        <input class="field" id="password-current-field" name="password-current-field" type="password" autofocus>
+        <input class="field" id="password-current-field" name="password-current-field" type="password" autofocus required>
       </div>
       <div class="input-container">
         <label class="field-label" for="password-new-field">New Password</label>
-        <input class="field" id="password-new-field" name="password-new-field" type="password">
+        <input class="field" id="password-new-field" name="password-new-field" type="password" required title="Password must have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character" minlength="8" pattern="/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !\x22#$%&'()*+,\-./:;&gt=&lt?@[\\\]^_`{|}~])[A-Za-z\d !\x22#$%&'()*+,\-./:;&gt=&lt=>?@[\\\]^_`{|}~]{8,}(?&lt! )$/">
       </div>
       <div class="input-container">
         <label class="field-label" for="password-confirm-field">Confirm Password</label>
-        <input class="field" id="password-confirm-field" name="password-confirm-field" type="password">
+        <input class="field" id="password-confirm-field" name="password-confirm-field" type="password" required title="Password must have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character" minlength="8" pattern="/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !\x22#$%&'()*+,\-./:;&gt=&lt?@[\\\]^_`{|}~])[A-Za-z\d !\x22#$%&'()*+,\-./:;&gt=&lt=>?@[\\\]^_`{|}~]{8,}(?&lt! )$/">
       </div>
       <div class="buttons">
         <button type="submit" class="password-change-confirm" id="password-change-confirm">Confirm</button>

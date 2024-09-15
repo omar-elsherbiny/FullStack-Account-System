@@ -27,8 +27,8 @@ router.get('/sign-up', (request, result) => {
 
 router.post(
     '/sign-up',
-    body('sign-up-username').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 25 }).escape(),
-    // body('sign-up-password').trim().notEmpty().isLength({ min: 8 }),
+    body('sign-up-username').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 25 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
+    // body('sign-up-password').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     async (request, result) => {
         let data = {
             username: request.body['sign-up-username'].toLowerCase(),
@@ -108,7 +108,7 @@ router.post(
         }
     });
 
-router.post('/log-out', async (request, result) => {
+router.post('/log-out', (request, result) => {
     request.session.user = null;
     request.flash('alerts', [{ content: 'Logged out successfully', type: 'success' }]);
     result.redirect('/');
@@ -136,5 +136,25 @@ router.post('/delete-account', async (request, result) => {
     }
     result.redirect('/');
 });
+
+router.post(
+    '/update-username',
+    body('username-edit-field').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 25 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
+    body('username-password-confirm-field').trim().notEmpty(),
+    async (request, result) => {
+        request.flash('alerts', [{ content: 'Updated username successfully', type: 'success' }]);
+        // request.flash('alerts', [{ content: 'Invalid username or password', type: 'error' }]);
+        result.redirect('/account');
+    });
+
+router.post(
+    '/update-password',
+    body('password-current-field').trim().notEmpty(),
+    body('password-new-field').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
+    body('password-confirm-field').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
+    async (request, result) => {
+        request.flash('alerts', [{ content: 'Updated password successfully', type: 'success' }]);
+        result.redirect('/account');
+    });
 
 module.exports = router;

@@ -9,17 +9,19 @@ const passwordEditModal = document.getElementById('password-edit-modal');
 function closeModal() {
     modalContainer.classList.add('hide');
 }
-
-accountFormUsernameEdit.addEventListener('click', e => {
+function openUsernameModal() {
     modalContainer.classList.remove('hide');
     usernameEditModal.classList.remove('hide');
     passwordEditModal.classList.add('hide');
-});
-accountFormPasswordEdit.addEventListener('click', e => {
+}
+function openPasswordModal() {
     modalContainer.classList.remove('hide');
     usernameEditModal.classList.add('hide');
     passwordEditModal.classList.remove('hide');
-});
+}
+
+accountFormUsernameEdit.addEventListener('click', openUsernameModal);
+accountFormPasswordEdit.addEventListener('click', openPasswordModal);
 
 backdrop.addEventListener('click', closeModal);
 document.addEventListener('keyup', e => {
@@ -32,3 +34,12 @@ const passwordChangeCancel = document.getElementById('password-change-cancel');
 
 usernameChangeCancel.addEventListener('click', closeModal);
 passwordChangeCancel.addEventListener('click', closeModal);
+
+const urlParams = new URLSearchParams(window.location.search);
+
+const modalParam = urlParams.get('modal');
+if (modalParam == '0') {
+    openUsernameModal();
+} else if (modalParam == '1') {
+    openPasswordModal();
+}

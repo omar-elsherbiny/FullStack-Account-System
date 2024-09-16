@@ -99,6 +99,14 @@ router.post('/log-in',
             };
             request.session.keepLogged = data.keepLogged;
             request.session.timestamp = Date.now();
+
+            if (user_check.suspendedFrom) {
+                user_check.suspendedFrom = undefined;
+                user_check.save();
+                console.log(`User "${data.username}" unsuspended`);
+                request.flash('alerts', [{ content: 'Account unsuspended', type: 'info' }]);
+            }
+
             console.log(`User "${data.username}" logged in`);
             request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }]);
             result.redirect('/');
@@ -119,8 +127,9 @@ router.post('/delete-account', async (request, result) => {
             { _id: request.session.user.id },
             { suspendedFrom: new Date() }
         );
+        console.log(`User "${request.session.user.username}" suspended`);
         request.session.user = null;
-        request.flash('alerts', [{ content: 'Deleted account successfully', type: 'caution' }]);
+        request.flash('alerts', [{ content: 'Account suspended for 14 days before deletion', type: 'caution' }]);
     } catch (error) {
         request.flash('alerts', [{ content: 'Error deleting account', type: 'error' }]);
     }
@@ -224,6 +233,9 @@ router.post('/update-password',
 
 cron.schedule('0 1 * * *', async () => {
     try {
+        await collection.find({ suspendedFrom: { $exists: true } })
+            .select('username suspendedFrom -_id')
+            .then(suspendedUsernames => { console.log('Suspended users:', suspendedUsernames); })
         const usersToDelete = await collection.find({
             suspendedFrom: { $lte: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000) } // 14 days
         });
@@ -238,7 +250,7 @@ cron.schedule('0 1 * * *', async () => {
                 });
             }
             collection.deleteOne({ _id: user.id }).then((result) => {
-                console.log(`User '${user.username}' deleted`);
+                console.log(`User "${user.username}" deleted`);
             });
         });
     } catch (err) {

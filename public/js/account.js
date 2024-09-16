@@ -23,7 +23,7 @@ function openPasswordModal() {
     passwordEditModal.classList.remove('hide');
     deleteAccountModal.classList.add('hide');
 }
-function openPasswordModal() {
+function openDeleteModal() {
     modalContainer.classList.remove('hide');
     usernameEditModal.classList.add('hide');
     passwordEditModal.classList.add('hide');
@@ -32,7 +32,7 @@ function openPasswordModal() {
 
 accountFormUsernameEdit.addEventListener('click', openUsernameModal);
 accountFormPasswordEdit.addEventListener('click', openPasswordModal);
-deleteButton.addEventListener('click', openPasswordModal);
+deleteButton.addEventListener('click', openDeleteModal);
 
 backdrop.addEventListener('click', closeModal);
 document.addEventListener('keyup', e => {
@@ -53,6 +53,8 @@ const urlParams = new URLSearchParams(window.location.search);
 const modalParam = urlParams.get('modal');
 if (modalParam == '0') {
     openUsernameModal();
+    window.history.pushState({}, document.title, 'account');
 } else if (modalParam == '1') {
     openPasswordModal();
+    window.history.pushState({}, document.title, 'account');
 }

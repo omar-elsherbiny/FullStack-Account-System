@@ -55,8 +55,7 @@ router.get('/:username', async (request, result, next) => {
     }
 });
 
-router.post(
-    '/:username/update-profile',
+router.post('/:username/update-profile',
     loginRequired,
     upload.single('profile-edit-pfp'),
     async (request, result, next) => {

@@ -10,7 +10,6 @@ main {
     flex-direction: column;
 
     width: 45rem;
-    /* min-height: 40rem; */
 
     border-radius: 1rem;
     border: 2pt solid black;

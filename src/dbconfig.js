@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    suspendedFrom: {
+        type: Date,
+        required: false
+    },
 });
 
 const collection = new mongoose.model('users', UserSchema);

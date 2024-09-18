@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
+const { body, validationResult } = require('express-validator');
 
 const storage = multer.diskStorage({
     destination: function (request, file, callback) {
@@ -58,6 +59,8 @@ router.get('/:username', async (request, result, next) => {
 router.post('/:username/update-profile',
     loginRequired,
     upload.single('profile-edit-pfp'),
+    body('profile-edit-display-name').trim().isLength({ min: 0, max: 30 }).escape(),
+    body('profile-edit-about-me-textbox').trim().isLength({ min: 0, max: 500 }).escape(),
     async (request, result, next) => {
         if (request.session.user.username != request.params.username) {
             result.status(401).render('error', { errorCode: 401, errorMessage: 'Unauthorized to update profile' });
@@ -70,6 +73,22 @@ router.post('/:username/update-profile',
                 showMemberSince: request.body['profile-edit-show-member-since'] == 'on' ? true : false,
                 aboutMe: request.body['profile-edit-about-me-textbox'],
             };
+
+            const validation = validationResult(request);
+
+            if (!validation.isEmpty()) {
+                for (let i = 0; i < validation.errors.length; i++) {
+                    if (validation.errors[i].path == 'profile-edit-display-name') {
+                        request.flash('alerts', [{ content: 'Invalid display name input', type: 'error' }]);
+                    }
+                    if (validation.errors[i].path == 'profile-edit-about-me-textbox') {
+                        request.flash('alerts', [{ content: 'Invalid about me input', type: 'error' }]);
+                    }
+                }
+
+                result.redirect('/profile');
+                return;
+            }
 
             if (request.fileValidationError) {
                 request.flash('alerts', [{ content: request.fileValidationError, type: 'caution' }]);

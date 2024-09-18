@@ -50,7 +50,7 @@
       <form action="<%=username%>/update-profile" method="post" enctype="multipart/form-data" id="edit-menu" class="edit-menu hide">
         <div class="profile-edit-display-name-container">
           <label class="profile-edit-display-name-label" id="profile-edit-display-name-label" for="profile-edit-display-name">Display name</label>
-          <input class="profile-edit-display-name" id="profile-edit-display-name" name="profile-edit-display-name" value="<%=profileDisplayName%>" type="text" autofocus />
+          <input class="profile-edit-display-name" id="profile-edit-display-name" name="profile-edit-display-name" value="<%=profileDisplayName%>" type="text" maxlength="30" autofocus />
         </div>
 
         <div class="profile-edit-show-member-since-container">
@@ -64,7 +64,7 @@
 
         <div id="profile-edit-about-me" class="profile-edit-about-me">
           <h2>About Me</h2>
-          <textarea name="profile-edit-about-me-textbox" id="profile-edit-about-me-textbox"><%=locals.aboutMe%></textarea>
+          <textarea name="profile-edit-about-me-textbox" id="profile-edit-about-me-textbox" maxlength="500"><%=locals.aboutMe%></textarea>
         </div>
 
         <div class="edit-profile-picture" id="edit-profile-picture">

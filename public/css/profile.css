@@ -11,6 +11,8 @@ main {
 
     width: 45rem;
 
+    margin: 2rem;
+
     border-radius: 1rem;
     border: 2pt solid black;
 }
@@ -45,6 +47,10 @@ main {
     flex-direction: column;
     justify-content: start;
     flex: 1;
+}
+
+.content>h1 {
+    width: calc(100% - 13rem);
 }
 
 .content>h1,
@@ -280,6 +286,7 @@ main {
 @media only screen and (max-width:815px) {
     .profile-container {
         height: calc(100vh - 5.5rem);
+        margin: 0;
         width: 100vw;
         border: none;
     }
@@ -290,6 +297,10 @@ main {
 }
 
 @media only screen and (max-width:550px) {
+    .content>h1 {
+        width: auto;
+    }
+
     .profile-picture {
         left: 50%;
         transform: translate(-50%, -50%);

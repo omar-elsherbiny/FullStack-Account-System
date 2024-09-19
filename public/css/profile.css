@@ -51,6 +51,7 @@ main {
 
 .content>h1 {
     width: calc(100% - 13rem);
+    word-wrap: break-word;
 }
 
 .content>h1,
@@ -150,7 +151,8 @@ main {
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: calc(1rem - 2pt);
+    padding: 0 calc(1rem - 2pt);
+    border-top: calc(0.5rem + 2pt) transparent inset;
     box-sizing: border-box;
 
     font-weight: 500;
@@ -158,6 +160,32 @@ main {
     overflow-y: auto;
 
     border-radius: calc(1rem - 2pt);
+}
+
+
+@media (pointer: fine) {
+    .about-me::-webkit-scrollbar {
+        display: block;
+        width: 0.5rem
+    }
+
+    .about-me::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    .about-me::-webkit-scrollbar-track {
+        background-color: #00000000;
+    }
+
+    .about-me::-webkit-scrollbar-track-piece {
+        background-color: #00000000;
+    }
+
+    .about-me::-webkit-scrollbar-thumb {
+        background-color: #00000040;
+        border: 1px solid #ffffff40;
+        border-radius: 24px;
+    }
 }
 
 .profile-edit-about-me>textarea {
@@ -334,7 +362,9 @@ main {
         justify-content: center;
     }
 
-    .profile-edit-display-name-label {
+    .profile-edit-display-name-label,
+    .profile-edit-about-me>h2,
+    .about-me-container>h2 {
         position: absolute;
         top: 0;
         left: 50%;

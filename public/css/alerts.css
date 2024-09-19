@@ -27,6 +27,7 @@
     padding: 1rem;
     width: fit-content;
     border-radius: 1rem;
+    text-align: center;
 }
 
 .alert[data-alert-type="error"] {

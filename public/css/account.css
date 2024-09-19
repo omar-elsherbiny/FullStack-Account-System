@@ -222,6 +222,13 @@ main {
         border: none;
     }
 
+    .field-label {
+        text-wrap: nowrap;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -65%);
+    }
+
     #username-edit-modal,
     #password-edit-modal {
         padding: 2rem;

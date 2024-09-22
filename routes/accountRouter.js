@@ -27,7 +27,7 @@ router.get('/sign-up', (request, result) => {
 });
 
 router.post('/sign-up',
-    body('sign-up-username').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 25 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
+    body('sign-up-username').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 30 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
     // body('sign-up-password').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     async (request, result) => {
         let data = {
@@ -147,7 +147,7 @@ router.post('/delete-account', async (request, result) => {
 });
 
 router.post('/update-username',
-    body('username-edit-field').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 25 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
+    body('username-edit-field').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 30 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
     body('username-password-confirm-field').trim().notEmpty(),
     async (request, result) => {
         let data = {

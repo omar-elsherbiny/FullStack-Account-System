@@ -17,15 +17,17 @@ const hostname = process.env.hostname || 'localhost';
 const port = process.env.port || 8080;
 
 // live reload
-const livereload = require('livereload');
-const connectLiveReload = require('connect-livereload');
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once('connection', () => {
-    setTimeout(() => {
-        liveReloadServer.refresh('/');
-    }, 100);
-});
-app.use(connectLiveReload());
+if (process.env.node_env == 'development') {
+    const livereload = require('livereload');
+    const connectLiveReload = require('connect-livereload');
+    const liveReloadServer = livereload.createServer();
+    liveReloadServer.server.once('connection', () => {
+        setTimeout(() => {
+            liveReloadServer.refresh('/');
+        }, 100);
+    });
+    app.use(connectLiveReload());
+}
 // live reload //
 
 // main middleware

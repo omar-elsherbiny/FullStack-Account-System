@@ -66,7 +66,7 @@ router.post('/:username/update-profile',
     upload.single('profile-edit-pfp'),
     body('profile-edit-display-name').trim().isLength({ min: 0, max: 30 }).escape(),
     body('profile-edit-about-me-textbox').trim().isLength({ min: 0, max: 500 }).escape(),
-    async (request, result, next) => {
+    async (request, result) => {
         if (request.session.user.username != request.params.username) {
             result.status(401).render('error', { errorCode: 401, errorMessage: 'Unauthorized to update profile' });
             return;

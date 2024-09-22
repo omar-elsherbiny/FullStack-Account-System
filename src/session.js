@@ -4,7 +4,7 @@ const MongoStore = require('connect-mongo');
 
 module.exports = session({
     name: 'mongoSession',
-    secret: process.env.session_secret_key,
+    secret: process.env.session_secret_key || 'secret',
     httpOnly: true,
     secure: true,
     maxAge: 1000 * 60 * 60 * 24 * 30,

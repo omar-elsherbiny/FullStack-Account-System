@@ -15,9 +15,10 @@ const profileRouter = require('../routes/profileRouter');
 const app = express();
 const hostname = process.env.hostname || 'localhost';
 const port = process.env.port || 8080;
+const nodeEnv = process.env.node_env || 'production'
 
 // live reload
-if (process.env.node_env == 'development') {
+if (nodeEnv == 'development') {
     const livereload = require('livereload');
     const connectLiveReload = require('connect-livereload');
     const liveReloadServer = livereload.createServer();
@@ -64,5 +65,5 @@ app.use((request, result, next) => {
 });
 
 app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running on ${nodeEnv} enviroment at http://${hostname}:${port}/`);
 });

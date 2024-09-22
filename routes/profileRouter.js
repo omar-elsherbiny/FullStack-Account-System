@@ -38,11 +38,8 @@ router.get('/', loginRequired, (request, result) => {
 router.get('/:username', async (request, result, next) => {
     const searched_user = await collection.findOne({ username: request.params.username });
     if (searched_user) {
-        result.render('profile', {
+        let options = {
             alerts: request.flash('alerts'),
-            username: request.session.user.username,
-            displayName: request.session.user.displayName,
-            pfpPath: request.session.user.pfpPath,
             profileUsername: searched_user.username,
             profileDisplayName: searched_user.displayName,
             canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
@@ -50,7 +47,15 @@ router.get('/:username', async (request, result, next) => {
             showMemberSince: searched_user.showMemberSince,
             aboutMe: searched_user.aboutMe,
             pfpPathSearched: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
-        });
+        }
+        if (request.session.user) {
+            Object.assign(options, {
+                username: request.session.user.username,
+                displayName: request.session.user.displayName,
+                pfpPath: request.session.user.pfpPath,
+            });
+        }
+        result.render('profile', options);
     } else {
         next();
     }

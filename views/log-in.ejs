@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="/js/script.js" defer></script>
+  <script src="/js/log-in.js" defer></script>
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="stylesheet" href="/css/forms.css" />
   <title>Account System: log-in</title>
@@ -32,6 +33,20 @@
 
     <button type="submit">Login</button>
   </form>
+  <% if (locals.suspended) { %>
+
+  <div class="modal-container" id="modal-container">
+    <div class="backdrop" id="backdrop"></div>
+    <form action="" method="POST" class="modal" id="delete-disactivated">
+      <h3>Account is suspended. Do you want to restore it?</h3>
+      <div class="buttons">
+        <button type="submit" id="confirm-restore">Confirm</button>
+        <button type="reset" id="cancel-restore">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <% } %>
 </body>
 
 </html>

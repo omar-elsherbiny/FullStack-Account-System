@@ -87,3 +87,74 @@ form button:focus-visible {
         border: none;
     }
 }
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 25rem;
+    height: 15rem;
+    display: grid;
+
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: white;
+
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+    align-items: center;
+
+    box-sizing: border-box;
+    border: 2pt solid black;
+}
+
+.backdrop {
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.modal>h3 {
+    text-align: center;
+    font-size: 16pt;
+    align-self: center;
+    justify-self: center;
+    margin: 0;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 1rem;
+    align-self: end;
+}
+
+.buttons>button {
+    cursor: pointer;
+    font-size: 12pt;
+    font-weight: 650;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 2pt solid black;
+}
+
+@media only screen and (max-width: 430px) {
+    .modal {
+        width: 100svw;
+        height: 100svh;
+
+        border-radius: 0;
+        border: none;
+    }
+
+    .modal>h3 {
+        align-self: end;
+    }
+}

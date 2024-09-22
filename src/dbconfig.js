@@ -1,5 +1,13 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-const connect = mongoose.connect('mongodb://localhost:27017/Account_System');
+
+['mongo_url'].forEach(envVar => {
+    if (!process.env[envVar]) {
+        throw Error(`Missing enviroment variable: ${envVar}`);
+    }
+});
+
+const connect = mongoose.connect(process.env.mongo_url);
 
 connect
     .then(() => {

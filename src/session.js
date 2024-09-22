@@ -1,12 +1,5 @@
-require('dotenv').config();
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-
-['session_secret_key', 'mongo_url'].forEach(envVar => {
-    if (!process.env[envVar]) {
-        throw Error(`Missing enviroment variable: ${envVar}`);
-    }
-});
 
 module.exports = session({
     name: 'mongoSession',

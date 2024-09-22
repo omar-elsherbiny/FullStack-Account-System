@@ -1,7 +1,8 @@
 const authUser = (request, result, next) => {
     const now = Date.now();
     if (!request.session.keepLogged &&
-        now - request.session.timestamp > 1000 * 60 * 60 * 3) { // 3 hours
+        (now - request.session.timestamp) >
+        (process.env.node_env == 'development' ? 1000 * 60 : 1000 * 60 * 60 * 3)) { // 1 min / 3 hours
         request.session.user = null;
     }
     request.session.timestamp = now;

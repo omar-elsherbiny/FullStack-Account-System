@@ -1,5 +1,15 @@
-// library imports
+// enviroment variables
 require('dotenv').config();
+const hostname = process.env.hostname = process.env.hostname || 'localhost';
+const port = process.env.port = process.env.port || 8080;
+const nodeEnv = process.env.node_env = process.env.node_env || 'production';
+['session_secret_key', 'mongo_url'].forEach(envVar => {
+    if (!process.env[envVar]) {
+        throw new Error(`Missing enviroment variable: ${envVar}`);
+    }
+});
+
+// library imports
 const express = require('express');
 const flash = require('express-flash');
 
@@ -13,9 +23,6 @@ const accountRouter = require('../routes/accountRouter');
 const profileRouter = require('../routes/profileRouter');
 
 const app = express();
-const hostname = process.env.hostname || 'localhost';
-const port = process.env.port || 8080;
-const nodeEnv = process.env.node_env || 'production'
 
 // live reload
 if (nodeEnv == 'development') {

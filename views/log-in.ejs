@@ -37,14 +37,28 @@
 
   <div class="modal-container" id="modal-container">
     <div class="backdrop" id="backdrop"></div>
-    <form action="" method="POST" class="modal" id="delete-disactivated">
+    <form action="/account/log-in" method="post" class="modal" id="delete-disactivated">
       <h3>Account is suspended. Do you want to restore it?</h3>
+      <p>Account will be deleted on: <%=suspended.deleteOn%></p>
       <div class="buttons">
         <button type="submit" id="confirm-restore">Confirm</button>
         <button type="reset" id="cancel-restore">Cancel</button>
       </div>
+      <input name="log-in-username" type="hidden" value=<%=suspended.username%> />
+      <input name="log-in-password" type="hidden" value=<%=suspended.password%> />
+      <input name="log-in-stay" type="hidden" value=<%=suspended.keepLogged%> />
+      <input name="log-in-unsuspend" type="hidden" value="1" />
     </form>
   </div>
+
+  <script>
+    const modalContainer = document.getElementById('modal-container');
+    const cancelRestore = document.getElementById('cancel-restore');
+
+    cancelRestore.addEventListener('click', e => {
+      modalContainer.classList.add('hide');
+    });
+  </script>
 
   <% } %>
 </body>

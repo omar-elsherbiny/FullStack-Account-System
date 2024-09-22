@@ -79,6 +79,7 @@ router.post('/log-in',
             username: request.body['log-in-username'].toLowerCase(),
             password: request.body['log-in-password'],
             keepLogged: request.body['log-in-stay'] == 'on' ? true : false,
+            unsuspend: request.body['log-in-unsuspend'],
         }
 
         const validation = validationResult(request);
@@ -90,29 +91,38 @@ router.post('/log-in',
 
         const user_check = await collection.findOne({ username: data.username });
 
-        if (user_check && await compareHash(data.password, user_check.hash)) {
-            request.session.user = {
-                id: user_check._id,
-                username: data.username,
-                displayName: user_check.displayName,
-                pfpPath: user_check.pfpPath ? '/uploads/' + user_check.pfpPath : '/media/profile-icon.png',
-            };
-            request.session.keepLogged = data.keepLogged;
-            request.session.timestamp = Date.now();
+        if (!(user_check && await compareHash(data.password, user_check.hash))) {
+            result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] });
+            return;
+        }
 
-            if (user_check.suspendedFrom) {
+        if (user_check.suspendedFrom) {
+            if (data.unsuspend) {
                 user_check.suspendedFrom = undefined;
                 user_check.save();
                 console.log(`User "${data.username}" unsuspended`);
                 request.flash('alerts', [{ content: 'Account unsuspended', type: 'info' }]);
+            } else {
+                const deleteOn = new Date(user_check.suspendedFrom.getTime() + 14 * 24 * 60 * 60 * 1000);
+                deleteOn.setHours(1, 0, 0, 0);
+                data.deleteOn = deleteOn.toLocaleString('en-GB');
+                result.render('log-in', { suspended: data });
+                return;
             }
-
-            console.log(`User "${data.username}" logged in`);
-            request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }]);
-            result.redirect('/');
-        } else {
-            result.render('log-in', { alerts: [{ content: 'Invalid username or password', type: 'error' }] });
         }
+
+        request.session.user = {
+            id: user_check._id,
+            username: data.username,
+            displayName: user_check.displayName,
+            pfpPath: user_check.pfpPath ? '/uploads/' + user_check.pfpPath : '/media/profile-icon.png',
+        };
+        request.session.keepLogged = data.keepLogged;
+        request.session.timestamp = Date.now();
+
+        console.log(`User "${data.username}" logged in`);
+        request.flash('alerts', [{ content: 'Logged in successfully', type: 'success' }]);
+        result.redirect('/');
     });
 
 router.post('/log-out', (request, result) => {

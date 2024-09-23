@@ -74,5 +74,5 @@ app.use((request, result, next) => {
 });
 
 app.listen(port, hostname, () => {
-    console.log(`Server running on ${nodeEnv} enviroment at http://${hostname}:${port}/`);
+    console.log(`Server running on ${nodeEnv} environment at http://${hostname}:${port}/`);
 });

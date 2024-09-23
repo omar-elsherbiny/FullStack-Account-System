@@ -1,11 +1,13 @@
-// enviroment variables
+// environment variables
 require('dotenv').config();
-const hostname = process.env.hostname = process.env.hostname || 'localhost';
-const port = process.env.port = process.env.port || 8080;
-const nodeEnv = process.env.node_env = process.env.node_env || 'production';
-['session_secret_key', 'mongo_url'].forEach(envVar => {
+const hostname = process.env.HOSTNAME = process.env.HOSTNAME || 'localhost';
+const port = process.env.PORT = process.env.PORT || 8080;
+const nodeEnv = process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+process.env.MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/Account_System';
+
+['SESSION_SECRET_KEY'].forEach(envVar => {
     if (!process.env[envVar]) {
-        throw new Error(`Missing enviroment variable: ${envVar}`);
+        throw new Error(`Missing environment variable: ${envVar}`);
     }
 });
 

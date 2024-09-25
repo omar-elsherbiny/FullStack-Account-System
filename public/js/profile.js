@@ -21,6 +21,7 @@ const profileEditBanner = document.getElementById("profile-edit-banner");
 
 const backdrop = document.getElementById("backdrop");
 const modalContainer = document.getElementById("modal-container");
+const modal = document.getElementById("modal");
 const cropCancel = document.getElementById("crop-cancel");
 
 let croppie;
@@ -49,6 +50,23 @@ profileEditPfp.addEventListener("input", (e) => {
     reader.readAsDataURL(file);
 });
 
+function rangeLerp(
+    inputValue,
+    inputRangeStart = 0,
+    InputRangeEnd = 1,
+    OutputRangeStart,
+    OutputRangeEnd,
+    capInput = false,
+    decimalPlaces = 1) {
+    let t = inputValue;
+    if (capInput) {
+        t = Math.max(Math.min(t, InputRangeEnd), inputRangeStart);
+    }
+    let res = OutputRangeStart * (InputRangeEnd - t) + OutputRangeEnd * (t - inputRangeStart);
+    res /= (InputRangeEnd - inputRangeStart);
+    return res.toFixed(decimalPlaces);
+}
+
 profileEditBanner.addEventListener("input", (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -60,8 +78,10 @@ profileEditBanner.addEventListener("input", (e) => {
 
         isBanner = true;
 
+        const viewportWidth = rangeLerp(modal.getBoundingClientRect().width, 256, 571, 150, 450, false, 2)
+
         croppie = new Croppie(document.getElementById("crop-editor"), {
-            viewport: { width: 640, height: 128, type: "square" },
+            viewport: { width: viewportWidth, height: viewportWidth / 5, type: "square" },
         });
 
         croppie.bind({
@@ -80,7 +100,8 @@ document.addEventListener("keyup", (e) => {
 
 document.getElementById("crop-confirm").addEventListener("click", (e) => {
     croppie
-        .result("blob", {
+        .result({
+            type: "blob",
             format: "jpeg",
             size: isBanner
                 ? { width: 640, height: 128 }

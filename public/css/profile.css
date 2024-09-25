@@ -219,10 +219,10 @@ main {
     transform: translateY(-50%);
     width: 12rem;
     height: 12rem;
+    border-radius: 50%;
 }
 
 #edit-banner-picture {
-    z-index: 9;
     top: 0;
     right: 0;
     width: 100%;
@@ -248,6 +248,7 @@ main {
 }
 
 .edit-hamburger-menu-container {
+    z-index: 10;
     width: 100%;
     height: 100%;
 }
@@ -370,11 +371,23 @@ main {
     }
 
     #edit-banner-picture {
-        z-index: 9;
         top: 0;
         right: 0;
         width: 100%;
         height: 8rem;
+    }
+
+    #edit-profile-picture .picture-hamburger-menu {
+        top: 6rem;
+    }
+
+    #edit-banner-picture .picture-hamburger-menu {
+        top: 3.5rem;
+    }
+
+    #edit-banner-picture>.profile-edit-picture-icon>svg {
+        position: absolute;
+        top: 0.5rem;
     }
 
     .profile-edit-picture-label:has(+ .profile-edit-picture:hover) {
@@ -462,6 +475,10 @@ main {
     border: 2pt solid black;
     border-radius: 1rem;
     overflow: hidden;
+}
+
+.cr-slider {
+    width: 100%;
 }
 
 .backdrop {

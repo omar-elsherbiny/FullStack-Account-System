@@ -22,7 +22,7 @@
 
   <main>
     <div class="profile-container">
-      <img src="https://placehold.co/640x128" class="banner" id="profile-banner"></img>
+      <img src=<%= profileData.bannerPath %> class="banner" id="profile-banner"></img>
       <img class="profile-picture" id="profile-picture" src=<%= profileData.pfpPath %> alt="profile picture of user">
       <div class="content" id="content">
         <% if (profileData.displayName) { %>

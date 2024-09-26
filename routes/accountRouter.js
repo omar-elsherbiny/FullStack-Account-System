@@ -115,7 +115,7 @@ router.post('/log-in',
             id: user_check._id,
             username: data.username,
             displayName: user_check.displayName,
-            pfpPath: user_check.pfpPath ? '/uploads/' + user_check.pfpPath : '/media/profile-icon.png',
+            pfpPath: user_check.pfpPath ? '/uploads/' + user_check.pfpPath : '/media/profile-placeholder.png',
         };
         request.session.keepLogged = data.keepLogged;
         request.session.timestamp = Date.now();

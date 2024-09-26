@@ -18,9 +18,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    memberSince: {
+    suspendedFrom: {
         type: Date,
-        required: true
+        required: false
     },
     displayName: {
         type: String,
@@ -34,12 +34,20 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         required: false
     },
+    memberSince: {
+        type: Date,
+        required: true
+    },
     pfpPath: {
         type: String,
         required: false
     },
-    suspendedFrom: {
-        type: Date,
+    pfpPath: {
+        type: String,
+        required: false
+    },
+    bannerPath: {
+        type: String,
         required: false
     },
 });

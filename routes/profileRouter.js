@@ -8,7 +8,8 @@ const storage = multer.diskStorage({
         callback(null, './public/uploads');
     },
     filename: function (request, file, callback) {
-        callback(null, `pfp_${request.session.user.id}.jpeg`);
+        let prefix = file.fieldname.replace('profile-edit-', '');
+        callback(null, `${prefix}_${request.session.user.id}.jpeg`);
     }
 });
 const upload = multer({
@@ -47,7 +48,8 @@ router.get('/:username', async (request, result, next) => {
                 memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
                 showMemberSince: searched_user.showMemberSince,
                 aboutMe: searched_user.aboutMe,
-                pfpPath: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
+                pfpPath: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-placeholder.png',
+                bannerPath: searched_user.bannerPath ? '/uploads/' + searched_user.bannerPath : '/media/banner-placeholder.png',
             },
         }
         if (request.session.user) {
@@ -65,7 +67,10 @@ router.get('/:username', async (request, result, next) => {
 
 router.post('/:username/update-profile',
     loginRequired,
-    upload.single('profile-edit-pfp'),
+    upload.fields([
+        { name: 'profile-edit-pfp', maxCount: 1 },
+        { name: 'profile-edit-banner', maxCount: 1 },
+    ]),
     body('profile-edit-display-name').trim().isLength({ min: 0, max: 30 }).escape(),
     body('profile-edit-about-me-textbox').trim().isLength({ min: 0, max: 500 }).escape(),
     async (request, result) => {
@@ -102,9 +107,13 @@ router.post('/:username/update-profile',
                 throw new Error(request.fileValidationError);
             }
 
-            if (request.file) {
+            if (request.files['profile-edit-pfp'][0]) {
                 data.pfpPath = `pfp_${request.session.user.id}.jpeg`;
-                request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-icon.png';
+                request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-placeholder.png';
+            }
+
+            if (request.files['profile-edit-banner'][0]) {
+                data.bannerPath = `banner_${request.session.user.id}.jpeg`;
             }
 
             request.session.user.displayName = data.displayName;

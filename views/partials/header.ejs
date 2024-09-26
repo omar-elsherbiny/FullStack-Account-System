@@ -33,6 +33,21 @@
         </form>
       </div>
     </div>
+    <script>
+      const headerProfilePicture = document.getElementById('header-profile-picture');
+      const headerHamburgerMenu = document.getElementById('header-hamburger-menu');
+
+      headerProfilePicture.addEventListener('click', event => {
+        headerHamburgerMenu.classList.toggle('closed');
+      });
+
+      document.addEventListener('click', event => {
+        if (!headerHamburgerMenu.contains(event.target) &&
+          !headerProfilePicture.contains(event.target)) {
+          headerHamburgerMenu.classList.add('closed');
+        }
+      });
+    </script>
     <% } else { %>
     <style>
       header>div {
@@ -44,18 +59,3 @@
     <% }%>
   </div>
 </header>
-<script>
-  const headerProfilePicture = document.getElementById('header-profile-picture');
-  const headerHamburgerMenu = document.getElementById('header-hamburger-menu');
-
-  headerProfilePicture.addEventListener('click', event => {
-    headerHamburgerMenu.classList.toggle('closed');
-  });
-
-  document.addEventListener('click', event => {
-    if (!headerHamburgerMenu.contains(event.target) &&
-      !headerProfilePicture.contains(event.target)) {
-      headerHamburgerMenu.classList.add('closed');
-    }
-  });
-</script>

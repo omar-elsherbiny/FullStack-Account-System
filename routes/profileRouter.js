@@ -17,7 +17,7 @@ const upload = multer({
     fileFilter: function (request, file, callback) {
         const extension = getExtension(file.originalname);
         if (extension != 'jpeg') {
-            request.fileValidationError = "Forbidden extension";
+            request.fileValidationError = 'Forbidden extension';
             return callback(null, false, request.fileValidationError);
         }
         callback(null, true);
@@ -107,12 +107,16 @@ router.post('/:username/update-profile',
                 throw new Error(request.fileValidationError);
             }
 
-            if (request.files['profile-edit-pfp'][0]) {
+            if (request.body['profile-edit-remove-pfp-field'] == '1') {
+                data.pfpPath = null;
+            } else if (request.files['profile-edit-pfp']) {
                 data.pfpPath = `pfp_${request.session.user.id}.jpeg`;
-                request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-placeholder.png';
             }
+            request.session.user.pfpPath = data.pfpPath ? '/uploads/' + data.pfpPath : '/media/profile-placeholder.png';
 
-            if (request.files['profile-edit-banner'][0]) {
+            if (request.body['profile-edit-remove-banner-field'] == '1') {
+                data.bannerPath = null;
+            } else if (request.files['profile-edit-banner']) {
                 data.bannerPath = `banner_${request.session.user.id}.jpeg`;
             }
 

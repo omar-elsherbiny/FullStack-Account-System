@@ -40,13 +40,15 @@ router.get('/:username', async (request, result, next) => {
     if (searched_user) {
         let options = {
             alerts: request.flash('alerts'),
-            profileUsername: searched_user.username,
-            profileDisplayName: searched_user.displayName,
-            canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
-            memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
-            showMemberSince: searched_user.showMemberSince,
-            aboutMe: searched_user.aboutMe,
-            pfpPathSearched: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
+            profileData: {
+                canEdit: request.session.user ? (request.session.user.username == request.params.username) : false,
+                username: searched_user.username,
+                displayName: searched_user.displayName,
+                memberSince: (searched_user.memberSince).toLocaleDateString('en-GB'),
+                showMemberSince: searched_user.showMemberSince,
+                aboutMe: searched_user.aboutMe,
+                pfpPath: searched_user.pfpPath ? '/uploads/' + searched_user.pfpPath : '/media/profile-icon.png',
+            },
         }
         if (request.session.user) {
             Object.assign(options, {

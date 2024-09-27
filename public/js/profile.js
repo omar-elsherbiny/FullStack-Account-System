@@ -108,6 +108,7 @@ document.getElementById('crop-confirm').addEventListener('click', (e) => {
         .result({
             type: 'blob',
             format: 'jpeg',
+            backgroundColor: '#FFFFFF',
             size: isBanner
                 ? { width: 640, height: 128 }
                 : { width: 200, height: 200 },
@@ -116,6 +117,9 @@ document.getElementById('crop-confirm').addEventListener('click', (e) => {
             applyImageCropping(blob);
         });
 });
+
+let previousPfp = profilePicture.src;
+let previousBanner = profileBanner.src;
 
 function applyImageCropping(blob) {
     modalContainer.classList.add('hide');
@@ -152,6 +156,9 @@ if (editButton) {
 }
 
 editCancel.addEventListener('click', () => {
+    profilePicture.src = previousPfp;
+    profileBanner.src = previousBanner;
+
     editMenu.classList.add('hide');
     content.classList.remove('hide');
 });
@@ -205,9 +212,11 @@ document.addEventListener('click', (event) => {
 profileEditRemovePfp.addEventListener('click', (event) => {
     profileEditRemovePfpField.value = '1';
     profilePicture.src = '/media/profile-placeholder.png';
+    editHamburgerMenu.classList.toggle('closed');
 });
 
 profileEditRemoveBanner.addEventListener('click', (event) => {
     profileEditRemoveBannerField.value = '1';
     profileBanner.src = '/media/banner-placeholder.png';
+    editBannerHamburgerMenu.classList.toggle('closed');
 });

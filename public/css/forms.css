@@ -34,6 +34,18 @@ form input[type="password"] {
     max-height: 1rem;
 }
 
+form input[type="text"]:not(:placeholder-shown):invalid,
+form input[type="password"]:not(:placeholder-shown):invalid {
+    outline-offset: 2px;
+    outline: #e32646 3px solid;
+}
+
+form input[type="text"]:not(:placeholder-shown):valid,
+form input[type="password"]:not(:placeholder-shown):valid {
+    outline-offset: 2px;
+    outline: #26e368 3px solid;
+}
+
 form p {
     margin-top: 0;
     margin-bottom: 2rem;
@@ -76,7 +88,7 @@ form button:hover {
 form input:focus-visible,
 form button:focus-visible {
     outline-offset: 2px;
-    outline: hsla(200, 75%, 65%, 75%) solid 3px;
+    outline: hsla(200, 75%, 65%, 75%) solid 2pt;
 }
 
 @media only screen and (max-width:545px) {

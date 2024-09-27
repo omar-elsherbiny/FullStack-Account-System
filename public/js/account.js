@@ -58,3 +58,66 @@ if (modalParam == '0') {
     openPasswordModal();
     window.history.pushState({}, document.title, 'account');
 }
+
+// password validation
+const passwordNewField = document.getElementById('password-new-field');
+const passwordConfirmField = document.getElementById('password-confirm-field');
+
+const passwordRegex = {
+    main: /^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/,
+    trim: /^(?! ).*(?<! )$/,
+    length: /^.{8,}$/,
+    lowerChar: /^(?=.*[a-z]).*$/,
+    upperChar: /^(?=.*[A-Z]).*$/,
+    num: /^(?=.*\d).*$/,
+    specialChar: /^(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]).*$/,
+};
+const passwordErrorMsg = {
+    trim: 'must not start or end with space',
+    length: 'length must be greater than or equal to 8',
+    lowerChar: 'must contain a lowercase character',
+    upperChar: 'must contain an uppercase character',
+    num: 'must contain a number',
+    specialChar: 'must contain a special character',
+};
+
+passwordNewField.addEventListener('input', () => {
+    if (passwordNewField.value.match(passwordRegex.main)) {
+        passwordNewField.setCustomValidity('');
+    } else {
+        let errorString = 'Password ';
+        let isFirst = true;
+
+        for (const key in passwordRegex) {
+            if (key == 'main') continue;
+
+            if (!passwordNewField.value.match(passwordRegex[key])) {
+                errorString += (isFirst ? '' : ', ') + passwordErrorMsg[key]
+                isFirst = false
+            }
+        }
+
+        passwordNewField.setCustomValidity(errorString);
+    }
+});
+passwordConfirmField.addEventListener('input', () => {
+    if (passwordConfirmField.value == passwordNewField.value) {
+        passwordConfirmField.setCustomValidity('');
+    } else {
+        passwordConfirmField.setCustomValidity('Passwords do not match')
+    }
+});
+
+// username validation
+const usernameEditField = document.getElementById('username-edit-field');
+
+const usernameRegex = /^[A-Za-z\d_\-\.!#$%&]{3,30}$/;
+const usernameErrorMsg = 'Username must be between 3 and 30 characters long';
+
+usernameEditField.addEventListener('input', () => {
+    if (usernameEditField.value.match(usernameRegex)) {
+        usernameEditField.setCustomValidity('');
+    } else {
+        usernameEditField.setCustomValidity(usernameErrorMsg);
+    }
+});

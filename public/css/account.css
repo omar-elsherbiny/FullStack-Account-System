@@ -149,6 +149,23 @@ main {
     align-self: start;
 }
 
+#username-password-confirm-field,
+#password-current-field {
+    outline: none;
+}
+
+.input-container input[type="text"]:not(:placeholder-shown):invalid,
+.input-container input[type="password"]:not(:placeholder-shown):invalid {
+    outline-offset: 2px;
+    outline: #e32646 3px solid;
+}
+
+.input-container input[type="text"]:not(:placeholder-shown):valid,
+.input-container input[type="password"]:not(:placeholder-shown):valid {
+    outline-offset: 2px;
+    outline: #26e368 3px solid;
+}
+
 .modal>h3 {
     text-align: center;
     font-size: 16pt;

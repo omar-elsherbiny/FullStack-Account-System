@@ -28,7 +28,7 @@ router.get('/sign-up', (request, result) => {
 
 router.post('/sign-up',
     body('sign-up-username').toLowerCase().trim().notEmpty().isLength({ min: 3, max: 30 }).matches(/^[A-Za-z\d_\-\.!#$%&]{3,25}$/).escape(),
-    // body('sign-up-password').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
+    body('sign-up-password').trim().notEmpty().isLength({ min: 8 }).matches(/^(?! )(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[ !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])[A-Za-z\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{8,}(?<! )$/),
     async (request, result) => {
         let data = {
             username: request.body['sign-up-username'].toLowerCase(),
